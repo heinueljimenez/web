@@ -3,127 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Cachucha Graphic | Cotizador Online</title>
+    <title>La Cachucha Graphic | Soluciones de Alta Gama</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .carousel-cell { width: 100%; height: 450px; margin-right: 20px; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
-        .carousel-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .carousel-cell:hover img { transform: scale(1.05); }
-        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
-        @media (min-width: 768px) { .carousel-cell { width: 45%; } }
+        
+        body { 
+            font-family: 'Inter', sans-serif;
+            background-image: url('FONDO PARA PAGINA WEB.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .service-card {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            background: white;
+        }
+
+        .map-container {
+            filter: grayscale(0.5);
+            border-radius: 20px;
+            overflow: hidden;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-slate-900">
+<body class="min-h-screen">
 
-    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+    <nav class="p-4">
+        <div class="max-w-6xl mx-auto glass-panel rounded-full px-6 py-3 flex justify-between items-center shadow-2xl">
             <div class="flex items-center gap-3">
-                <img src="LOGO LA CACHUCHA.png" class="h-12 w-auto" alt="Logo">
-                <span class="font-black text-xl tracking-tighter uppercase italic hidden md:block">La Cachucha</span>
+                <img src="LOGO LA CACHUCHA.png" class="h-10" alt="Logo">
+                <div class="leading-none">
+                    <h1 class="font-black text-sm uppercase">La Cachucha</h1>
+                    <p class="text-[10px] font-bold text-gray-500">GRAPHIC</p>
+                </div>
             </div>
-            <a href="https://wa.me/18099140210" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-green-200 transition-all flex items-center gap-2">
-                <i class="fab fa-whatsapp text-lg"></i> <span class="hidden sm:inline">PEDIR AHORA</span>
+            <a href="https://wa.me/18099140210" class="bg-[#4CAF50] text-white px-6 py-2 rounded-full font-black text-xs flex items-center gap-2 hover:scale-105 transition-transform">
+                COTIZAR AHORA <i class="fab fa-whatsapp"></i>
             </a>
         </div>
     </nav>
 
-    <header class="relative bg-slate-950 py-24 px-6 overflow-hidden">
-        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500 via-transparent to-transparent"></div>
-        <div class="relative max-w-4xl mx-auto text-center">
-            <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight italic uppercase">
-                Impresión <span class="text-blue-500 font-outline-2">Pro</span> en la Zona Colonial
-            </h1>
-            <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto">
-                DTF Textil, UV, Sublimación y Bordados con terminación premium. Cotiza tu pedido en segundos.
-            </p>
+    <main class="max-w-6xl mx-auto px-4 pb-20">
+        
+        <div class="text-center py-10">
+            <h2 class="text-4xl md:text-5xl font-black uppercase italic text-white drop-shadow-2xl mb-2">
+                Soluciones Gráficas de Alta Gama
+            </h2>
+            <p class="text-white font-bold text-lg drop-shadow-md">DTF UV, Sublimación y Bordados Industriales en la Zona Colonial</p>
         </div>
-    </header>
 
-    <section class="py-20">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex items-center justify-between mb-12">
-                <h2 class="text-3xl font-black uppercase italic">Nuestros Trabajos</h2>
-                <div class="h-1 flex-1 bg-gray-100 mx-8 hidden md:block"></div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            <div class="service-card p-4 rounded-3xl text-center shadow-xl">
+                <img src="DTF UVV.webp" class="w-full h-32 object-cover rounded-2xl mb-3">
+                <h3 class="font-black text-xs uppercase">DTF UV Personalizado <i class="fas fa-file-alt text-blue-500"></i></h3>
+                <p class="text-[10px] text-gray-600">Transfiere diseños a cualquier superficie</p>
             </div>
-            <div class="main-carousel" data-flickity='{ "cellAlign": "left", "contain": true, "autoPlay": 3000, "wrapAround": true, "prevNextButtons": false, "pageDots": true }'>
-                <div class="carousel-cell"><img src="CAMISETA DTF TEX.webp"></div>
-                <div class="carousel-cell"><img src="POLO BORDADO.jpg"></div>
-                <div class="carousel-cell"><img src="DTF UVV.webp"></div>
-                <div class="carousel-cell"><img src="BORDADOOO.webp"></div>
-                <div class="carousel-cell"><img src="SUBLIMACION POR METRO.jpg"></div>
-                <div class="carousel-cell"><img src="DTF TEX.jpeg"></div>
+            <div class="service-card p-4 rounded-3xl text-center shadow-xl">
+                <img src="CAMISETA DTF TEX.webp" class="w-full h-32 object-cover rounded-2xl mb-3">
+                <h3 class="font-black text-xs uppercase">Textil DTF <i class="fas fa-tshirt text-red-500"></i></h3>
+                <p class="text-[10px] text-gray-600">Resistencia y colores vibrantes</p>
+            </div>
+            <div class="service-card p-4 rounded-3xl text-center shadow-xl">
+                <img src="POLO BORDADO.jpg" class="h-32 w-full object-cover rounded-2xl mb-3">
+                <h3 class="font-black text-xs uppercase">Bordado Corporativo <i class="fas fa-user-tie text-yellow-600"></i></h3>
+                <p class="text-[10px] text-gray-600">Elegancia para tu marca</p>
+            </div>
+            <div class="service-card p-4 rounded-3xl text-center shadow-xl">
+                <img src="SUBLIMACION POR METRO.jpg" class="w-full h-32 object-cover rounded-2xl mb-3">
+                <h3 class="font-black text-xs uppercase">Sublimación <i class="fas fa-print text-purple-500"></i></h3>
+                <p class="text-[10px] text-gray-600">Producción por metro y piezas</p>
             </div>
         </div>
-    </section>
 
-    <section class="py-20 bg-slate-100 px-6">
-        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <h2 class="text-4xl font-black mb-6 italic leading-none">CALCULA TU INVERSIÓN</h2>
-                <p class="text-slate-600 mb-8">Selecciona el servicio y la cantidad para obtener un presupuesto estimado al instante.</p>
+        <div class="mb-12">
+            <h3 class="text-center text-white font-black text-xl mb-6 uppercase tracking-widest">
+                <i class="fas fa-star text-yellow-400"></i> Testimonios de Clientes <i class="fas fa-comment-dots"></i>
+            </h3>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-panel p-6 rounded-3xl shadow-lg">
+                    <div class="flex gap-1 text-yellow-500 mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-xs italic font-bold mb-4">"La calidad de los bordados es incomparable. El mejor servicio en la Zona Mella."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-[10px] font-black">UJ</div>
+                        <span class="text-[10px] font-black">User Jimenez (Emprendedor)</span>
+                    </div>
+                </div>
+                <div class="glass-panel p-6 rounded-3xl shadow-lg">
+                    <div class="flex gap-1 text-yellow-500 mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-xs italic font-bold mb-4">"El DTF UV tiene una adherencia increíble. Mis termos quedaron de otro nivel."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-[10px] font-black">MJ</div>
+                        <span class="text-[10px] font-black">Maria Rodriguez (Diseñadora)</span>
+                    </div>
+                </div>
+                <div class="glass-panel p-6 rounded-3xl shadow-lg">
+                    <div class="flex gap-1 text-yellow-500 mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-xs italic font-bold mb-4">"Atención rápida y el pedido llegó justo a tiempo. Recomendados 100%."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-[10px] font-black">CL</div>
+                        <span class="text-[10px] font-black">Carlos Lora (Tienda Ropa)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-panel p-8 rounded-[40px] shadow-2xl overflow-hidden border-2 border-white">
+            <div class="grid md:grid-cols-2 gap-8">
                 <div class="space-y-4">
-                    <div class="flex items-center gap-4 text-sm font-bold text-slate-500 uppercase">
-                        <i class="fas fa-check-circle text-blue-600"></i> Calidad Garantizada
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" id="nombre" placeholder="Nombre / Compañía" class="p-4 bg-white/50 rounded-2xl outline-none font-bold text-sm">
+                        <input type="number" id="cant" placeholder="Cantidad" class="p-4 bg-white/50 rounded-2xl outline-none font-bold text-sm" oninput="calc()">
                     </div>
-                    <div class="flex items-center gap-4 text-sm font-bold text-slate-500 uppercase">
-                        <i class="fas fa-check-circle text-blue-600"></i> Entrega en 24-48h
+                    <select id="servicio" class="w-full p-4 bg-white/50 rounded-2xl outline-none font-bold text-sm" onchange="calc()">
+                        <option value="350">DTF Textil (RD$350)</option>
+                        <option value="900">DTF UV (RD$900)</option>
+                        <option value="150">Bordado (RD$150)</option>
+                        <option value="300">Sublimación (RD$300)</option>
+                    </select>
+                    
+                    <div class="flex justify-between items-center p-4 bg-white/80 rounded-2xl">
+                        <div class="leading-none">
+                            <span class="text-[10px] font-black text-gray-400 uppercase">Total Estimado</span>
+                            <div class="text-2xl font-black text-slate-800" id="totalDisplay">RD$ 0.00</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[10px] font-black text-blue-500">Servicio Express</span>
+                            <p class="text-[9px] text-gray-400 leading-none">Entrega en 24h disponible</p>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="glass-card p-8 rounded-[3rem] shadow-2xl border border-white">
-                <div class="space-y-5">
-                    <div>
-                        <label class="text-xs font-black uppercase text-slate-400 ml-2">Tu Nombre</label>
-                        <input type="text" id="nombre" placeholder="Ej. Juan Pérez" class="w-full p-5 bg-gray-50 rounded-2xl border-0 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
-                    </div>
-                    <div>
-                        <label class="text-xs font-black uppercase text-slate-400 ml-2">Tipo de Trabajo</label>
-                        <select id="servicio" class="w-full p-5 bg-gray-50 rounded-2xl border-0 outline-none appearance-none cursor-pointer" onchange="calc()">
-                            <option value="350">DTF Textil (RD$350)</option>
-                            <option value="900">DTF UV (RD$900)</option>
-                            <option value="150">Bordado (RD$150)</option>
-                            <option value="300">Sublimación (RD$300)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="text-xs font-black uppercase text-slate-400 ml-2">Cantidad</label>
-                        <input type="number" id="cant" value="1" min="1" class="w-full p-5 bg-gray-50 rounded-2xl border-0 outline-none" oninput="calc()">
-                    </div>
-                    <div class="bg-slate-900 rounded-[2rem] p-8 text-center mt-4">
-                        <span class="text-blue-400 text-xs font-black uppercase tracking-widest">Total Estimado</span>
-                        <div class="text-5xl font-black text-white mt-1" id="totalDisplay">RD$ 350</div>
-                    </div>
-                    <button onclick="enviar()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-6 rounded-2xl shadow-xl transition-all active:scale-95 flex items-center justify-center gap-3">
-                        ENVIAR POR WHATSAPP <i class="fas fa-arrow-right text-sm"></i>
+                    <button onclick="enviar()" class="w-full bg-[#25D366] text-white py-4 rounded-2xl font-black shadow-lg hover:scale-[1.02] transition-transform flex items-center justify-center gap-2 uppercase">
+                        Realizar Pedido vía WhatsApp <i class="fab fa-whatsapp text-xl"></i>
                     </button>
+                    <p class="text-[9px] text-center font-bold text-gray-500 uppercase tracking-tighter">Adjunta tu diseño directamente en el chat al enviar</p>
+                </div>
+
+                <div class="map-container relative h-[250px] md:h-full min-h-[250px]">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.453258529321!2d-69.8887413!3d18.4744415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf883907c08271%3A0xe545cc87d465d648!2sAv.%20Mella%20410%2C%20Santo%20Domingo!5e0!3m2!1ses!2sdo!4v1711670000000!5m2!1ses!2sdo" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 
-    <footer class="bg-white py-12 text-center">
-        <p class="font-black text-slate-300 uppercase italic tracking-widest text-sm mb-2">La Cachucha Graphic</p>
-        <p class="text-slate-400 text-xs">Santo Domingo, RD • Av. Mella 410</p>
+    <footer class="glass-panel py-6 px-6 fixed bottom-0 left-0 right-0 border-t border-white rounded-t-3xl flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-4">
+            <img src="LOGO LA CACHUCHA.png" class="h-8" alt="">
+            <p class="text-[10px] font-bold italic">"Impresión de alta gama para clientes exigentes en la República Dominicana"</p>
+        </div>
+        
+        <div class="flex gap-6 items-center">
+            <button class="text-[10px] font-black uppercase tracking-widest border-b-2 border-black">Consultar estado de mi pedido</button>
+            <div class="flex gap-4 text-lg">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
     </footer>
 
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <script>
         function calc() {
             const p = document.getElementById('servicio').value;
-            const c = document.getElementById('cant').value;
+            const c = document.getElementById('cant').value || 0;
             const total = p * c;
             document.getElementById('totalDisplay').innerText = "RD$ " + total.toLocaleString();
         }
+
         function enviar() {
             const n = document.getElementById('nombre').value || "Cliente";
             const s = document.getElementById('servicio').options[document.getElementById('servicio').selectedIndex].text;
             const t = document.getElementById('totalDisplay').innerText;
-            const m = `*PEDIDO WEB - LA CACHUCHA*\n\n👤 *Cliente:* ${n}\n🛠️ *Servicio:* ${s}\n💰 *Total:* ${t}\n\n_Cotización generada desde la web._`;
+            const m = `*LA CACHUCHA GRAPHIC - PEDIDO WEB*\n\n👤 *Cliente:* ${n}\n🛠️ *Servicio:* ${s}\n💰 *Estimado:* ${t}\n\n_Favor confirmar disponibilidad y tiempos de entrega._`;
             window.open(`https://wa.me/18099140210?text=${encodeURIComponent(m)}`);
         }
     </script>
