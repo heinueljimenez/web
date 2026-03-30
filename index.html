@@ -182,10 +182,30 @@
 
     <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-slate-900 text-white w-14 h-14 rounded-2xl shadow-2xl z-50 flex items-center justify-center hover:bg-blue-600 transition-colors hidden" id="scrollTop"><i class="fas fa-chevron-up"></i></button>
 
-    <footer class="py-20 bg-white border-t border-slate-100 text-center px-6">
-        <img src="LOGO_LA_CACHUCHA.png" class="h-16 mx-auto mb-8 opacity-40 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
-        <p class="text-slate-400 text-xs font-black uppercase tracking-[0.5em]">La Cachucha Graphic © 2026</p>
+        <footer class="py-16 bg-white border-t border-slate-200 text-center px-6">
+        <img src="LOGO_CACHUCHA.png" class="h-16 mx-auto mb-6 grayscale opacity-30 hover:opacity-100 transition-all" alt="Logo">
+        
+        <div class="space-y-6 text-slate-500 text-sm max-w-lg mx-auto font-bold uppercase tracking-wider">
+            <p class="text-slate-700 italic normal-case">"Impresión de alta gama para clientes exigentes en la República Dominicana"</p>
+            <p>Av. Mella 410, Zona Colonial, Santo Domingo, RD</p>
+            
+            <div class="py-4">
+                <button onclick="window.open('https://wa.me/18099140210?text=Hola, quiero consultar el estatus de mi pedido')" 
+                    class="bg-blue-600 text-white px-8 py-3 rounded-xl font-black text-xs uppercase shadow-lg hover:bg-slate-900 transition-colors">
+                    ¿CÓMO VA MI PEDIDO? <i class="fas fa-search ml-2"></i>
+                </button>
+            </div>
+
+            <div class="flex justify-center gap-10 text-3xl pt-4">
+                <a href="https://wa.me/18099140210" class="text-green-500 hover:scale-110 transition-transform"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/tu_usuario" class="text-pink-500 hover:scale-110 transition-transform"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:info@lacachuchagraphic.com" class="text-blue-400 hover:scale-110 transition-transform"><i class="far fa-envelope"></i></a>
+            </div>
+            
+            <p class="pt-8 text-[9px] opacity-40">© 2026 LA CACHUCHA GRAPHIC. TODOS LOS DERECHOS RESERVADOS.</p>
+        </div>
     </footer>
+
 
     <script>
         // Barra de progreso y botón subir
