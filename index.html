@@ -147,6 +147,15 @@
                         <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest ml-4">Cantidad</label>
                         <input type="number" id="cantidad" value="1" min="1" oninput="calculate()" class="w-full rounded-3xl border-2 border-slate-100 bg-white p-6 focus:border-blue-600 outline-none font-black text-xl text-center shadow-sm">
                     </div>
+                        <div class="mt-8">
+        <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest ml-4">Sube tu diseño (Máx 75MB)</label>
+        <div class="relative">
+            <input type="file" id="disenoArchivo" accept=".pdf,.ai,.png,.jpg,.webp" 
+                class="w-full rounded-3xl border-2 border-slate-100 bg-white p-4 focus:border-blue-600 transition-all text-xs file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-black file:bg-blue-600 file:text-white hover:file:bg-slate-900">
+            <p id="errorArchivo" class="text-red-500 text-[9px] mt-2 hidden font-black uppercase italic ml-4 animate-pulse">⚠️ El archivo excede los 75MB</p>
+        </div>
+    </div>
+
                 </div>
 
                 <div class="bg-blue-600 rounded-[2rem] p-8 flex items-center gap-6 text-white shadow-2xl hover:scale-[1.02] transition-transform cursor-pointer" onclick="document.getElementById('express').click()">
@@ -285,15 +294,53 @@
         }
 
         function sendWhatsApp() {
-            const nombre = document.getElementById('nombre').value;
-            if(!nombre) { alert("Por favor, pon tu nombre para atenderte mejor."); return; }
-            const servicio = document.getElementById('servicio').options[document.getElementById('servicio').selectedIndex].text;
-            const cantidad = document.getElementById('cantidad').value;
-            const express = document.getElementById('express').checked ? "SI ✅" : "NO ❌";
-            const total = document.getElementById('totalDisplay').innerText;
-            const msg = `*LA CACHUCHA GRAPHIC*\n\n👤 *Cliente:* ${nombre}\n📦 *Servicio:* ${servicio}\n🔢 *Cantidad:* ${cantidad}\n⚡ *Express:* ${express}\n💰 *Total:* ${total}`;
-            window.open(`https://wa.me/18099140210?text=${encodeURIComponent(msg)}`);
+    const nombre = document.getElementById('nombre').value;
+    if(!nombre) { alert("Por favor, pon tu nombre para atenderte mejor."); return; }
+
+    const servicioSelect = document.getElementById('servicio');
+    const servicioTexto = servicioSelect.options[servicioSelect.selectedIndex].text;
+    const cantidad = document.getElementById('cantidad').value;
+    const express = document.getElementById('express').checked ? "SI ✅" : "NO ❌";
+    const total = document.getElementById('totalDisplay').innerText;
+    
+    // Lógica de archivo (id="disenoArchivo" que pusiste en la línea 150)
+    const archivoInput = document.getElementById('disenoArchivo');
+    const errorMsg = document.getElementById('errorArchivo');
+    let nombreArchivo = "No adjuntado";
+
+    if (archivoInput.files.length > 0) {
+        if (archivoInput.files[0].size > 78643200) { // 75MB
+            errorMsg.classList.remove('hidden');
+            alert("El archivo es muy pesado para WhatsApp (Máx 75MB).");
+            return;
         }
+        errorMsg.classList.add('hidden');
+        nombreArchivo = archivoInput.files[0].name;
+    }
+
+    // Mensaje de WhatsApp mejorado
+    const msg = `*LA CACHUCHA GRAPHIC*%0A%0A` +
+                `👤 *Cliente:* ${nombre}%0A` +
+                `📁 *Servicio:* ${servicioTexto}%0A` +
+                `🔢 *Cantidad:* ${cantidad}%0A` +
+                `⚡ *Express:* ${express}%0A` +
+                `📄 *Archivo:* ${nombreArchivo}%0A` +
+                `💰 *Total:* ${total}`;
+
+    window.open(`https://wa.me/18099140210?text=${msg}`, '_blank');
+
+    // Pregunta por el correo según el servicio (después de 3 segundos)
+    setTimeout(() => {
+        let email = servicioTexto.toLowerCase().includes("sublimación") 
+            ? "sublimacion@lacachuchagraphic.com" 
+            : "impresionesdtf@lacachuchagraphic.com";
+
+        if (confirm(`¿Deseas enviar el original a ${email} para asegurar la mejor calidad?`)) {
+            window.location.href = `mailto:${email}?subject=Diseño de ${nombre}&body=Adjunto diseño para ${servicioTexto}.`;
+        }
+    }, 3000);
+}
+
     </script>
 </body>
 </html>
