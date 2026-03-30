@@ -263,6 +263,8 @@
                 <button onclick="botResponde('tiempo')" class="text-left text-[9px] p-2 bg-white hover:bg-blue-600 hover:text-white rounded-xl border border-slate-200 font-black uppercase transition-all shadow-sm">¿Cuánto tardan los pedidos?</button>
                 <button onclick="botResponde('envio')" class="text-left text-[9px] p-2 bg-white hover:bg-blue-600 hover:text-white rounded-xl border border-slate-200 font-black uppercase transition-all shadow-sm">¿Hacen envíos al interior?</button>
                 <button onclick="botResponde('formato')" class="text-left text-[9px] p-2 bg-white hover:bg-blue-600 hover:text-white rounded-xl border border-slate-200 font-black uppercase transition-all shadow-sm">¿En qué formato mando mi arte?</button>
+                <button onclick="botResponde('horario')" class="text-left text-[9px] p-2 bg-white hover:bg-blue-600 hover:text-white rounded-xl border border-slate-200 font-black uppercase transition-all shadow-sm">🕒 Ver Horario Laboral</button>
+
             </div>
         </div>
     </div>
@@ -381,6 +383,34 @@ function botResponde(tipo) {
     if(tipo === 'tiempo') respuesta = "🚀 DTF: 24h laborables. Bordados: 2-3 días según cantidad. Sublimación: 24-48h.";
     if(tipo === 'envio') respuesta = "🚚 ¡Sí! Enviamos por Caribe Pack, Metro Pac y paradas de guaguas a todo el país.";
     if(tipo === 'formato') respuesta = "🎨 Preferimos PDF, AI o PNG sin fondo en alta resolución.";
+    if(tipo === 'horario') respuesta = "🕒 Lun a Vie: 9:00 AM - 6:00 PM | Sáb: 9:00 AM - 1:00 PM. Dom: Cerrado.";
+    function actualizarEstado() {
+    const ahora = new Date();
+    const hora = ahora.getHours();
+    const dia = ahora.getDay(); // 0 es domingo, 1-5 lunes a viernes, 6 sábado
+    const badge = document.getElementById('statusBadge');
+    const texto = badge.querySelector('span:last-child');
+
+    let abierto = false;
+
+    if (dia >= 1 && dia <= 5) { // Lunes a Viernes
+        if (hora >= 9 && hora < 18) abierto = true;
+    } else if (dia === 6) { // Sábado
+        if (hora >= 9 && hora < 13) abierto = true;
+    }
+
+    if (abierto) {
+        texto.innerText = "Abierto";
+        badge.classList.add('text-green-500');
+    } else {
+        texto.innerText = "Cerrado";
+        badge.classList.remove('text-green-500');
+        badge.classList.add('text-red-500');
+    }
+}
+actualizarEstado(); // Ejecutar al cargar
+
+
 
     const bubble = document.createElement('p');
     bubble.className = "text-[10px] bg-blue-600 text-white p-3 rounded-2xl font-bold mt-2 shadow-md self-end ml-4";
