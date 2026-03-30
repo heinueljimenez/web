@@ -23,6 +23,14 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .reveal { animation: fadeInUp 0.8s ease-out forwards; }
+            @keyframes bounceIn {
+        0% { transform: scale(0.3); opacity: 0; }
+        50% { transform: scale(1.05); opacity: 1; }
+        70% { transform: scale(0.9); }
+        100% { transform: scale(1); }
+    }
+    .animate-bounce-in { animation: bounceIn 0.5s ease-out; }
+
 
     </style>
 </head>
@@ -243,6 +251,26 @@
             <p class="pt-8 text-[9px] opacity-40">© 2026 LA CACHUCHA GRAPHIC. TODOS LOS DERECHOS RESERVADOS.</p>
         </div>
     </footer>
+    <div id="faq-bot" class="fixed bottom-10 left-8 z-[9999] flex flex-col items-start font-sans">
+    <div id="chat-window" class="hidden mb-4 w-72 bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200 animate-bounce-in">
+        <div class="bg-slate-900 p-4 text-white flex justify-between items-center">
+            <span class="font-black text-[10px] uppercase tracking-widest italic">Asistente La Cachucha</span>
+            <button onclick="toggleChat()" class="text-white opacity-50 hover:opacity-100">×</button>
+        </div>
+        <div class="p-4 space-y-3 max-h-64 overflow-y-auto bg-slate-50" id="chat-content">
+            <p class="text-[10px] bg-white p-3 rounded-2xl text-slate-700 font-bold shadow-sm border border-slate-100">👋 ¡Hola! Soy el asistente de La Cachucha. ¿Qué duda tienes hoy?</p>
+            <div class="grid grid-cols-1 gap-2">
+                <button onclick="botResponde('tiempo')" class="text-left text-[9px] p-2 bg-white hover:bg-blue-600 hover:text-white rounded-xl border border-slate-200 font-black uppercase transition-all shadow-sm">¿Cuánto tardan los pedidos?</button>
+                <button onclick="botResponde('envio')" class="text-left text-[9px] p-2 bg-white hover:bg-blue-600 hover:text-white rounded-xl border border-slate-200 font-black uppercase transition-all shadow-sm">¿Hacen envíos al interior?</button>
+                <button onclick="botResponde('formato')" class="text-left text-[9px] p-2 bg-white hover:bg-blue-600 hover:text-white rounded-xl border border-slate-200 font-black uppercase transition-all shadow-sm">¿En qué formato mando mi arte?</button>
+            </div>
+        </div>
+    </div>
+    <button onclick="toggleChat()" class="bg-blue-600 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all border-2 border-white group">
+        <i class="fas fa-robot text-xl group-hover:rotate-12 transition-transform"></i>
+    </button>
+</div>
+
 
 
     <script>
@@ -340,6 +368,28 @@
         }
     }, 3000);
 }
+        // FUNCIONES DEL ASISTENTE DE LA CACHUCHA
+function toggleChat() {
+    const chatWin = document.getElementById('chat-window');
+    chatWin.classList.toggle('hidden');
+}
+
+function botResponde(tipo) {
+    const content = document.getElementById('chat-content');
+    let respuesta = "";
+
+    if(tipo === 'tiempo') respuesta = "🚀 DTF: 24h laborables. Bordados: 2-3 días según cantidad. Sublimación: 24-48h.";
+    if(tipo === 'envio') respuesta = "🚚 ¡Sí! Enviamos por Caribe Pack, Metro Pac y paradas de guaguas a todo el país.";
+    if(tipo === 'formato') respuesta = "🎨 Preferimos PDF, AI o PNG sin fondo en alta resolución.";
+
+    const bubble = document.createElement('p');
+    bubble.className = "text-[10px] bg-blue-600 text-white p-3 rounded-2xl font-bold mt-2 shadow-md self-end ml-4";
+    bubble.innerText = respuesta;
+    
+    content.appendChild(bubble);
+    content.scrollTo({ top: content.scrollHeight, behavior: 'smooth' });
+}
+
 
     </script>
 </body>
