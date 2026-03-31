@@ -74,6 +74,21 @@
         /* Animación Fade In */
         .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s all ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Estilos específicos para la nueva sección de Ofertas */
+        .offers-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .offers-slider::-webkit-scrollbar { display: none; }
+        .offer-card {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+        }
+        @media (min-width: 768px) { .offer-card { flex: 0 0 50%; } }
+        @media (min-width: 1024px) { .offer-card { flex: 0 0 33.333%; } }
     </style>
 </head>
 <body class="selection:bg-blue-600 selection:text-white">
@@ -116,7 +131,7 @@
         <div class="hidden lg:flex items-center gap-8 font-black text-[11px] uppercase tracking-widest">
             <a href="#productos-slider" class="hover:text-blue-600 transition-colors">Productos</a>
             <a href="#cotizador" class="text-blue-600">Tienda</a>
-            <a href="#" class="hover:text-blue-600 transition-colors">Ofertas</a>
+            <a href="#ofertas-especiales" class="hover:text-blue-600 transition-colors">Ofertas</a>
             <a href="#" class="hover:text-blue-600 transition-colors">Marcas</a>
             <a href="#" class="hover:text-blue-600 transition-colors">Contacto</a>
         </div>
@@ -171,6 +186,75 @@
             <div class="dot" onclick="goSlide(2)"></div>
             <div class="dot" onclick="goSlide(3)"></div>
             <div class="dot" onclick="goSlide(4)"></div>
+        </div>
+    </section>
+
+    <section id="ofertas-especiales" class="bg-black py-12">
+        <div class="px-6 mb-8">
+            <span class="text-blue-500 font-black tracking-[0.3em] text-[10px] uppercase">Oportunidades únicas</span>
+            <h2 class="text-white text-3xl font-black italic uppercase tracking-tighter">Ofertas <span class="text-blue-600">Flash</span></h2>
+        </div>
+        <div class="offers-slider">
+            <div class="offer-card border-r border-white/10 bg-zinc-900 group">
+                <div class="h-80 overflow-hidden">
+                    <img src="OFERTA_1.jpg" alt="Oferta 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-white font-black uppercase italic text-xl">Combo DTF X10</h3>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-white/30 line-through font-bold text-sm">RD$ 2,500</span>
+                        <span class="text-blue-500 font-black text-2xl">RD$ 1,850</span>
+                    </div>
+                </div>
+            </div>
+            <div class="offer-card border-r border-white/10 bg-zinc-900 group">
+                <div class="h-80 overflow-hidden">
+                    <img src="OFERTA_2.jpg" alt="Oferta 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-white font-black uppercase italic text-xl">Bordado Gorras</h3>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-white/30 line-through font-bold text-sm">RD$ 450</span>
+                        <span class="text-blue-500 font-black text-2xl">RD$ 325</span>
+                    </div>
+                </div>
+            </div>
+            <div class="offer-card border-r border-white/10 bg-zinc-900 group">
+                <div class="h-80 overflow-hidden">
+                    <img src="OFERTA_3.jpg" alt="Oferta 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-white font-black uppercase italic text-xl">Vinil Textil Premium</h3>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-white/30 line-through font-bold text-sm">RD$ 1,200</span>
+                        <span class="text-blue-500 font-black text-2xl">RD$ 890</span>
+                    </div>
+                </div>
+            </div>
+            <div class="offer-card border-r border-white/10 bg-zinc-900 group">
+                <div class="h-80 overflow-hidden">
+                    <img src="OFERTA_4.jpg" alt="Oferta 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-white font-black uppercase italic text-xl">Stickers UV Relief</h3>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-white/30 line-through font-bold text-sm">RD$ 800</span>
+                        <span class="text-blue-500 font-black text-2xl">RD$ 550</span>
+                    </div>
+                </div>
+            </div>
+            <div class="offer-card bg-zinc-900 group">
+                <div class="h-80 overflow-hidden">
+                    <img src="OFERTA_5.jpg" alt="Oferta 5" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-white font-black uppercase italic text-xl">Sublimación Jarros</h3>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="text-white/30 line-through font-bold text-sm">RD$ 350</span>
+                        <span class="text-blue-500 font-black text-2xl">RD$ 275</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
