@@ -8,59 +8,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        
-        body { 
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
-        }
-
-        /* Estilo Tekgraf: Transiciones y Sombras */
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
         .header-top { background-color: #000; color: #fff; font-size: 11px; }
         .nav-main { background-color: #fff; border-bottom: 1px solid #eee; }
         
-        /* Carrusel Pantalla Completa (Full Width) */
-        .carousel-wrapper { position: relative; width: 100%; overflow: hidden; height: 600px; }
-        .carousel-slide { 
-            display: flex; 
-            width: 500%; /* Para 5 imágenes */
-            height: 100%; 
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .carousel-item { 
-            width: 20%; 
-            height: 100%; 
-            position: relative;
-            background-size: cover;
-            background-position: center;
-        }
-        .carousel-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%);
-        }
+        /* Carrusel Full Width */
+        .carousel-wrapper { position: relative; width: 100%; overflow: hidden; height: 550px; }
+        .carousel-slide { display: flex; width: 500%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .carousel-item { width: 20%; height: 100%; position: relative; background-size: cover; background-position: center; }
+        .carousel-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, transparent 60%); }
         
-        /* Puntos de Navegación */
-        .carousel-dots {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            z-index: 20;
-        }
-        .dot { 
-            width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.3); 
-            cursor: pointer; transition: all 0.3s;
-        }
-        .dot.active { background: #2563eb; width: 30px; border-radius: 20px; }
+        .carousel-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 20; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; }
+        .dot.active { background: #2563eb; width: 25px; border-radius: 10px; }
 
         .footer-tek { background: #000; color: #fff; }
-        .footer-col-title { font-weight: 900; text-transform: uppercase; margin-bottom: 20px; color: #fff; }
-        
-        /* Animación Fade In */
-        .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s all ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body class="selection:bg-blue-600 selection:text-white">
@@ -72,7 +34,7 @@
                 <a href="#" class="hover:text-blue-500"><i class="fab fa-instagram"></i></a>
                 <a href="#" class="hover:text-blue-500"><i class="fab fa-whatsapp"></i></a>
             </div>
-            <span class="hidden md:inline text-white/50">|</span>
+            <span class="hidden md:inline text-white/10">|</span>
             <div class="hidden md:flex items-center gap-2">
                 <i class="fas fa-phone-alt text-blue-500"></i> 809-914-0210
             </div>
@@ -104,57 +66,25 @@
         </div>
         
         <div class="hidden lg:flex items-center gap-8 font-black text-[11px] uppercase tracking-widest">
-            <a href="#" class="hover:text-blue-600 transition-colors">Productos</a>
-            <a href="#cotizador" class="text-blue-600">Tienda</a>
-            <a href="#" class="hover:text-blue-600 transition-colors">Ofertas</a>
-            <a href="#" class="hover:text-blue-600 transition-colors">Marcas</a>
-            <a href="#" class="hover:text-blue-600 transition-colors">Contacto</a>
+            <button onclick="irA('inicio')" class="hover:text-blue-600 transition-colors uppercase">Inicio</button>
+            <button onclick="irA('productos')" class="hover:text-blue-600 transition-colors uppercase">Productos</button>
+            <button onclick="irA('cotizador')" class="text-blue-600 font-black uppercase">Cotizar</button>
+            <button onclick="irA('contacto')" class="hover:text-blue-600 transition-colors uppercase">Contacto</button>
         </div>
 
-        <button onclick="window.open('https://wa.me/18099140210')" class="bg-blue-600 text-white px-6 py-2.5 rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-slate-900 transition-all shadow-lg shadow-blue-600/20">
+        <button onclick="irA('cotizador')" class="bg-blue-600 text-white px-6 py-2.5 rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-slate-900 transition-all shadow-lg shadow-blue-600/20">
             Cotizar Ahora
         </button>
     </nav>
 
-    <section class="carousel-wrapper">
+    <section id="inicio" class="carousel-wrapper">
         <div class="carousel-slide" id="mainCarousel">
-            <div class="carousel-item" style="background-image: url('DTF_TEXTIL.jpg');">
-                <div class="carousel-overlay flex flex-col justify-center px-12 md:px-24">
-                    <span class="text-blue-500 font-black tracking-[0.4em] mb-4 text-sm">CALIDAD INDUSTRIAL</span>
-                    <h2 class="text-white text-5xl md:text-7xl font-black italic uppercase leading-tight tracking-tighter">DTF TEXTIL <br> DE ALTA GAMA</h2>
-                    <p class="text-white/70 max-w-lg mt-4 font-medium italic">Impresión con colores vibrantes y máxima durabilidad para tus prendas.</p>
-                </div>
-            </div>
-            <div class="carousel-item" style="background-image: url('DTF_UV_R.webp');">
-                <div class="carousel-overlay flex flex-col justify-center px-12 md:px-24">
-                    <span class="text-blue-500 font-black tracking-[0.4em] mb-4 text-sm">ADHESIVO ETERNO</span>
-                    <h2 class="text-white text-5xl md:text-7xl font-black italic uppercase leading-tight tracking-tighter">DTF UV <br> PREMIUM</h2>
-                    <p class="text-white/70 max-w-lg mt-4 font-medium italic">Personaliza superficies rígidas con relieve y resistencia extrema.</p>
-                </div>
-            </div>
-            <div class="carousel-item" style="background-image: url('BORDADOOO.jpg');">
-                <div class="carousel-overlay flex flex-col justify-center px-12 md:px-24">
-                    <span class="text-blue-500 font-black tracking-[0.4em] mb-4 text-sm">3D & TRADICIONAL</span>
-                    <h2 class="text-white text-5xl md:text-7xl font-black italic uppercase leading-tight tracking-tighter">BORDADO <br> INDUSTRIAL</h2>
-                    <p class="text-white/70 max-w-lg mt-4 font-medium italic">El acabado más profesional para uniformes y gorras de lujo.</p>
-                </div>
-            </div>
-            <div class="carousel-item" style="background-image: url('UV_IMPRESION.png');">
-                <div class="carousel-overlay flex flex-col justify-center px-12 md:px-24">
-                    <span class="text-blue-500 font-black tracking-[0.4em] mb-4 text-sm">POR YARDAS</span>
-                    <h2 class="text-white text-5xl md:text-7xl font-black italic uppercase leading-tight tracking-tighter">IMPRESIÓN <br> GRAN FORMATO</h2>
-                    <p class="text-white/70 max-w-lg mt-4 font-medium italic">Soluciones masivas para tu producción textil sin límites.</p>
-                </div>
-            </div>
-            <div class="carousel-item" style="background-image: url('SUBLIMACION_METRO.jpg');">
-                <div class="carousel-overlay flex flex-col justify-center px-12 md:px-24">
-                    <span class="text-blue-500 font-black tracking-[0.4em] mb-4 text-sm">FULL COLOR</span>
-                    <h2 class="text-white text-5xl md:text-7xl font-black italic uppercase leading-tight tracking-tighter">SUBLIMACIÓN <br> TOTAL</h2>
-                    <p class="text-white/70 max-w-lg mt-4 font-medium italic">Colores que no se sienten al tacto, ideales para poliéster.</p>
-                </div>
-            </div>
+            <div class="carousel-item" style="background-image: url('DTF_TEXTIL.jpg');"><div class="carousel-overlay"></div></div>
+            <div class="carousel-item" style="background-image: url('DTF_UV_R.webp');"><div class="carousel-overlay"></div></div>
+            <div class="carousel-item" style="background-image: url('BORDADOOO.jpg');"><div class="carousel-overlay"></div></div>
+            <div class="carousel-item" style="background-image: url('UV_IMPRESION.png');"><div class="carousel-overlay"></div></div>
+            <div class="carousel-item" style="background-image: url('SUBLIMACION_METRO.jpg');"><div class="carousel-overlay"></div></div>
         </div>
-        
         <div class="carousel-dots">
             <div class="dot active" onclick="goSlide(0)"></div>
             <div class="dot" onclick="goSlide(1)"></div>
@@ -164,121 +94,136 @@
         </div>
     </section>
 
-    <section id="cotizador" class="py-24 bg-white">
-        </section>
-
-    <section class="py-20 px-6 max-w-7xl mx-auto">
-        <div class="bg-white rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 p-8 flex flex-col md:flex-row gap-12 items-center">
-            <div class="md:w-1/3">
-                <h2 class="text-4xl font-black text-slate-900 mb-6 uppercase italic">Nuestra <span class="text-blue-600">Sede</span></h2>
-                <p class="font-bold text-slate-500 leading-relaxed mb-8">Visítanos en el centro de la acción. Tecnología de punta al alcance de tu mano.</p>
-                <div class="space-y-4">
-                    <p class="flex items-center gap-3 font-black text-xs uppercase italic tracking-widest"><i class="fas fa-map-marker-alt text-blue-600"></i> Av. Mella 410, Zona Colonial, SD.</p>
-                    <p class="flex items-center gap-3 font-black text-xs uppercase italic tracking-widest"><i class="fas fa-clock text-blue-600"></i> Lun - Sáb | 9AM - 6PM</p>
-                    <a href="https://maps.app.goo.gl/kXvAUp5n6p7h9P6y8" target="_blank" class="inline-block mt-4 text-blue-600 font-black underline uppercase text-[10px] tracking-widest">Abrir en Google Maps</a>
-                </div>
+    <section id="cotizador" class="py-24 px-6">
+        <div class="max-w-4xl mx-auto bg-white rounded-[3rem] p-10 md:p-16 shadow-2xl border border-slate-100">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black text-slate-900 mb-2 uppercase italic tracking-tighter leading-none">Presupuesto <span class="text-blue-600">Smart</span></h2>
+                <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest mt-2">Cotización inmediata vía WhatsApp</p>
             </div>
-            <div class="md:w-2/3 h-[450px] w-full rounded-[2rem] overflow-hidden border-4 border-slate-50 shadow-inner">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.5824578160413!2d-69.88939762417726!3d18.461805582620783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf8949826d9c61%3A0x866380c98f98c474!2sLa%20Cachucha%20Design!5e0!3m2!1ses-419!2sdo!4v1711890000000!5m2!1ses-419!2sdo" 
-                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+            
+            <div class="space-y-8">
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest ml-4">Nombre / Empresa</label>
+                    <input type="text" id="nombre" placeholder="Ej: BarberShop Pro" class="w-full rounded-3xl border-2 border-slate-50 bg-slate-50 p-5 focus:border-blue-600 outline-none transition-all font-bold">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest ml-4">Servicio</label>
+                        <select id="servicio" onchange="calculate()" class="w-full rounded-3xl border-2 border-slate-50 bg-slate-50 p-5 focus:border-blue-600 outline-none font-black uppercase text-xs">
+                            <option value="350">DTF Textil (RD$350)</option>
+                            <option value="900">DTF UV (RD$900)</option>
+                            <option value="150">Bordado Industrial (RD$150)</option>
+                            <option value="300">Sublimación (RD$300)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest ml-4">Cantidad</label>
+                        <input type="number" id="cantidad" value="1" min="1" oninput="calculate()" class="w-full rounded-3xl border-2 border-slate-50 bg-slate-50 p-5 focus:border-blue-600 outline-none font-black text-center text-xl">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest ml-4">Diseño (Máx 75MB)</label>
+                    <input type="file" id="disenoArchivo" class="w-full bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 p-4 text-[10px] font-bold">
+                </div>
+
+                <div class="bg-blue-600 rounded-[2rem] p-6 flex items-center gap-4 text-white shadow-xl cursor-pointer" onclick="document.getElementById('express').click()">
+                    <input type="checkbox" id="express" onchange="calculate()" class="w-6 h-6 accent-white cursor-pointer">
+                    <div>
+                        <p class="font-black text-sm uppercase italic">Servicio EXPRESS (+24H)</p>
+                        <p class="text-[9px] opacity-80 font-bold uppercase tracking-widest">+20% de cargo por prioridad máxima</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-950 rounded-[2.5rem] p-10 text-center text-white border-b-8 border-blue-600">
+                    <p class="text-[9px] uppercase font-black text-slate-500 mb-2 tracking-[0.4em]">Inversión Estimada</p>
+                    <div class="text-5xl font-black italic tracking-tighter" id="totalDisplay">RD$ 350.00</div>
+                    <div id="promoBox" class="hidden mt-4 bg-yellow-400 text-slate-950 text-[10px] font-black px-4 py-1.5 rounded-full inline-block uppercase italic animate-bounce"></div>
+                </div>
+
+                <button onclick="sendWhatsApp()" class="w-full bg-[#25D366] hover:bg-[#1ebd58] text-white font-black py-6 rounded-[2rem] shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-4 text-xl uppercase italic">
+                    <i class="fab fa-whatsapp text-2xl"></i> Enviar Pedido
+               </button>
             </div>
         </div>
     </section>
 
-    <footer class="footer-tek pt-20 pb-10 px-6 md:px-20">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-            <div>
-                <img src="LOGO_CACHUCHA.png" class="h-16 mb-8" alt="Logo">
-                <p class="text-white/50 text-xs leading-relaxed mb-8">En La Cachucha Graphic somos expertos en personalización textil y gráfica con calidad industrial en RD.</p>
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4">
-                        <div class="bg-blue-600/20 p-3 rounded-full"><i class="fas fa-phone-alt text-blue-500"></i></div>
-                        <span class="font-black text-sm uppercase italic">(809) 914-0210</span>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div class="bg-blue-600/20 p-3 rounded-full"><i class="fas fa-envelope text-blue-500"></i></div>
-                        <span class="font-black text-[10px] uppercase italic">info@lacachuchagraphic.com</span>
-                    </div>
-                </div>
+    <section id="contacto" class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="bg-white rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row gap-8 items-center p-8">
+            <div class="md:w-1/3">
+                <h2 class="text-3xl font-black uppercase italic mb-4">La Cachucha <span class="text-blue-600">Design</span></h2>
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">Av. Mella 410, Zona Colonial, Santo Domingo.</p>
+                <a href="https://goo.gl/maps/xG59fX6Q7Xy" target="_blank" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-black text-[10px] uppercase">Ver en Maps</a>
             </div>
-
-            <div>
-                <h3 class="footer-col-title">Servicios</h3>
-                <ul class="space-y-3 text-xs font-bold text-white/60 uppercase italic tracking-widest">
-                    <li><a href="#" class="hover:text-blue-500 transition-colors">DTF Textil Industrial</a></li>
-                    <li><a href="#" class="hover:text-blue-600 transition-colors">DTF UV para Rígidos</a></li>
-                    <li><a href="#" class="hover:text-blue-500 transition-colors">Bordado en Gorras / Polos</a></li>
-                    <li><a href="#" class="hover:text-blue-600 transition-colors">Sublimación Profesional</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="footer-col-title">Empresa</h3>
-                <ul class="space-y-3 text-xs font-bold text-white/60 uppercase italic tracking-widest">
-                    <li><a href="#" class="hover:text-blue-500 transition-colors">Nuestros Trabajos</a></li>
-                    <li><a href="#" class="hover:text-blue-500 transition-colors">Ubícanos</a></li>
-                    <li><a href="#" class="hover:text-blue-600 transition-colors">Preguntas Frecuentes</a></li>
-                    <li><a href="#" class="hover:text-blue-500 transition-colors">Términos de Servicio</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="footer-col-title">Suscripción</h3>
-                <div class="flex gap-2 mb-8">
-                    <input type="email" placeholder="Tu email..." class="bg-white/10 border border-white/10 p-3 rounded-lg flex-1 outline-none focus:border-blue-600 text-xs">
-                    <button class="bg-blue-600 p-3 rounded-lg"><i class="fas fa-paper-plane"></i></button>
-                </div>
-                <h3 class="footer-col-title">Métodos de Pago</h3>
-                <div class="flex gap-4 opacity-50 grayscale hover:grayscale-0 transition-all">
-                    <i class="fab fa-cc-visa text-3xl"></i>
-                    <i class="fab fa-cc-mastercard text-3xl"></i>
-                    <i class="fas fa-university text-3xl"></i>
-                </div>
+            <div class="md:w-2/3 w-full h-[400px] rounded-[2rem] overflow-hidden">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.5617265352614!2d-69.8893116!3d18.4714167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf89b6b7f3f1e7%3A0x7d6a5f7e7e7e7e7e!2sLa%20Cachucha%20Design!5e0!3m2!1ses!2sdo!4v1677000000000!5m2!1ses!2sdo" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
-        
-        <div class="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p class="text-[9px] font-black opacity-30 uppercase tracking-[0.5em]">Copyright © 2026 La Cachucha Graphic</p>
-            <div class="flex gap-6 text-white/30">
-                <a href="#" class="hover:text-blue-500"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="hover:text-blue-500"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="hover:text-blue-500"><i class="fab fa-whatsapp"></i></a>
-            </div>
-        </div>
+    </section>
+
+    <footer class="footer-tek py-12 text-center">
+        <p class="text-[9px] font-black opacity-30 uppercase tracking-[0.5em]">© 2026 La Cachucha Graphic | High End Printing</p>
     </footer>
 
     <script>
-        // CARRUSEL LOGIC
-        let currentSlide = 0;
-        const totalSlides = 5;
-        const mainCarousel = document.getElementById('mainCarousel');
-        const dots = document.querySelectorAll('.dot');
-
-        function updateCarousel() {
-            mainCarousel.style.transform = `translateX(-${currentSlide * 20}%)`;
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentSlide);
-            });
+        // NAVEGACIÓN SUAVE
+        function irA(id) {
+            const el = document.getElementById(id);
+            if(el) window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
         }
 
+        // CARRUSEL
+        let currentSlide = 0;
         function goSlide(n) {
             currentSlide = n;
-            updateCarousel();
+            document.getElementById('mainCarousel').style.transform = `translateX(-${n * 20}%)`;
+            document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === n));
+        }
+        setInterval(() => { currentSlide = (currentSlide + 1) % 5; goSlide(currentSlide); }, 5000);
+
+        // LÓGICA DEL COTIZADOR
+        function calculate() {
+            const price = parseFloat(document.getElementById('servicio').value);
+            const qty = Math.max(1, parseInt(document.getElementById('cantidad').value) || 1);
+            const isExpress = document.getElementById('express').checked;
+            const servicioTexto = document.getElementById('servicio').options[document.getElementById('servicio').selectedIndex].text;
+            
+            let total = price * qty;
+            let promo = "";
+
+            // Descuentos (Solo si NO es express)
+            if (!isExpress) {
+                if (servicioTexto.includes("Sublimación") && qty >= 10) { 
+                    total *= 0.90; promo = "¡10% DESCUENTO (10+ YARDAS)!"; 
+                } else if (servicioTexto.includes("Textil") && qty >= 10) { 
+                    total *= 0.92; promo = "¡8% DESCUENTO (10+ YARDAS)!"; 
+                }
+            } else {
+                total *= 1.20; // Cargo express
+                promo = "PRIORIDAD EXPRESS (+20%)";
+            }
+
+            document.getElementById('totalDisplay').innerText = "RD$ " + total.toLocaleString('en-US', {minimumFractionDigits: 2});
+            const pBox = document.getElementById('promoBox');
+            if(promo) { pBox.innerText = promo; pBox.classList.remove('hidden'); } else { pBox.classList.add('hidden'); }
         }
 
-        // Auto-play
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateCarousel();
-        }, 5000);
+        function sendWhatsApp() {
+            const nombre = document.getElementById('nombre').value || "Cliente";
+            const servicioSelect = document.getElementById('servicio');
+            const servicioTexto = servicioSelect.options[servicioSelect.selectedIndex].text;
+            const cantidad = document.getElementById('cantidad').value;
+            const express = document.getElementById('express').checked ? "SÍ ✅" : "NO ❌";
+            const total = document.getElementById('totalDisplay').innerText;
+            const msg = `*NUEVO PEDIDO - LA CACHUCHA*%0A%0A👤 *Cliente:* ${nombre}%0A📁 *Servicio:* ${servicioTexto}%0A🔢 *Cantidad:* ${cantidad}%0A⚡ *Express:* ${express}%0A💰 *Total:* ${total}`;
+            window.open(`https://wa.me/18099140210?text=${msg}`);
+        }
 
-        // ESTADO EN VIVO (ACTUALIZADO)
+        // ESTADO ABIERTO/CERRADO
         function updateStatus() {
             const h = new Date().getHours();
             const d = new Date().getDay();
-            const badge = document.getElementById('statusBadge');
             const text = document.getElementById('statusText');
             const dot = document.getElementById('statusDot');
             const ping = document.getElementById('statusDotPing');
@@ -288,17 +233,15 @@
             if(d === 6 && h >= 9 && h < 13) isOpen = true;
 
             if(isOpen) {
-                text.innerText = "Abierto";
-                dot.classList.add('bg-green-500');
-                badge.classList.add('text-green-500');
+                text.innerText = "Abierto Ahora";
             } else {
                 text.innerText = "Cerrado";
-                dot.classList.add('bg-red-500');
-                badge.classList.add('text-red-500');
+                dot.classList.replace('bg-green-500', 'bg-red-500');
                 ping.classList.add('hidden');
             }
         }
         updateStatus();
+        calculate(); // Inicializar total
     </script>
 </body>
 </html>
