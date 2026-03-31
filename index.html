@@ -413,37 +413,37 @@
 
         <div id="marcas-grid" class="grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-items-center">
             
-            <div onclick="showBrandGallery('yk')" class="flex flex-col items-center group cursor-pointer">
+            <div onclick="showBrandGallery('FOXIN')" class="flex flex-col items-center group cursor-pointer">
                 <div class="w-28 h-28 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center p-4 shadow-sm group-hover:border-blue-600 transition-all">
-                    <img src="FOXIN.jpg" alt="YK" class="w-full h-full object-contain grayscale group-hover:grayscale-0">
+                    <img src="FOXIN.jpg" alt="FOXIN" class="w-full h-full object-contain grayscale group-hover:grayscale-0">
                 </div>
                 <span class="mt-4 font-black uppercase italic text-[10px] tracking-widest text-slate-400 group-hover:text-slate-900">FOXIN</span>
             </div>
 
-            <div onclick="showBrandGallery('marca2')" class="flex flex-col items-center group cursor-pointer">
+            <div onclick="showBrandGallery('UNICRESE')" class="flex flex-col items-center group cursor-pointer">
                 <div class="w-28 h-28 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center p-4 shadow-sm group-hover:border-blue-600 transition-all">
-                    <img src="UNICRESE.jpg" alt="Marca 2" class="w-full h-full object-contain grayscale group-hover:grayscale-0">
+                    <img src="UNICRESE.jpg" alt="UNICRESE" class="w-full h-full object-contain grayscale group-hover:grayscale-0">
                 </div>
                 <span class="mt-4 font-black uppercase italic text-[10px] tracking-widest text-slate-400 group-hover:text-slate-900">UNICRESE</span>
             </div>
 
-            <div onclick="showBrandGallery('marca3')" class="flex flex-col items-center group cursor-pointer">
+            <div onclick="showBrandGallery('YK')" class="flex flex-col items-center group cursor-pointer">
                 <div class="w-28 h-28 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center p-4 shadow-sm group-hover:border-blue-600 transition-all">
-                    <img src="YUCA.jpg" alt="Marca 3" class="w-full h-full object-contain grayscale group-hover:grayscale-0">
+                    <img src="YUCA.jpg" alt="YK YUCA" class="w-full h-full object-contain grayscale group-hover:grayscale-0">
                 </div>
                 <span class="mt-4 font-black uppercase italic text-[10px] tracking-widest text-slate-400 group-hover:text-slate-900">YK YUCA</span>
             </div>
 
-            <div onclick="showBrandGallery('marca4')" class="flex flex-col items-center group cursor-pointer">
+            <div onclick="showBrandGallery('AREMAR')" class="flex flex-col items-center group cursor-pointer">
                 <div class="w-28 h-28 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center p-4 shadow-sm group-hover:border-blue-600 transition-all">
-                    <img src="AREMAR.jpg" alt="Marca 4" class="w-full h-full object-contain grayscale group-hover:grayscale-0">
+                    <img src="AREMAR.jpg" alt="AREMAR" class="w-full h-full object-contain grayscale group-hover:grayscale-0">
                 </div>
                 <span class="mt-4 font-black uppercase italic text-[10px] tracking-widest text-slate-400 group-hover:text-slate-900">AREMAR</span>
             </div>
 
-            <div onclick="showBrandGallery('marca5')" class="flex flex-col items-center group cursor-pointer">
+            <div onclick="showBrandGallery('BOBCAB')" class="flex flex-col items-center group cursor-pointer">
                 <div class="w-28 h-28 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center p-4 shadow-sm group-hover:border-blue-600 transition-all">
-                    <img src="BOBCAB.jpg" alt="Marca 5" class="w-full h-full object-contain grayscale group-hover:grayscale-0">
+                    <img src="BOBCAB.jpg" alt="BOBCAB" class="w-full h-full object-contain grayscale group-hover:grayscale-0">
                 </div>
                 <span class="mt-4 font-black uppercase italic text-[10px] tracking-widest text-slate-400 group-hover:text-slate-900">BOBCAB</span>
             </div>
@@ -779,7 +779,7 @@
         }
         const BRAND_DATA = {
             'yk': {
-                name: 'Marca YK',
+                name: 'FOXIN',
                 products: [
                     { img: 'yk1.jpg', desc: 'Polo con Bordado 3D' },
                     { img: 'yk2.jpg', desc: 'Gorra DTF Premium' },
@@ -789,9 +789,56 @@
                     { img: 'yk6.jpg', desc: 'Tshirt DTF' },
                     { img: 'yk7.jpg', desc: 'Chaqueta Personalizada' }
                 ]
+            },
+            'marca2': {
+                name: 'UNICRESE',
+                products: [
+                    { img: 'm2_1.jpg', desc: 'Descripción 1' },
+                    { img: 'm2_2.jpg', desc: 'Descripción 2' },
+                    { img: 'm2_3.jpg', desc: 'Descripción 3' },
+                    { img: 'm2_4.jpg', desc: 'Descripción 4' },
+                    { img: 'm2_5.jpg', desc: 'Descripción 5' },
+                    { img: 'm2_6.jpg', desc: 'Descripción 6' },
+                    { img: 'm2_7.jpg', desc: 'Descripción 7' }
+                ]
+            },
+            'marca3': {
+                name: 'YK YUCA',
+                products: [
+                    { img: 'm3_1.jpg', desc: 'Producto A' },
+                    { img: 'm3_2.jpg', desc: 'Producto B' },
+                    { img: 'm3_3.jpg', desc: 'Producto C' },
+                    { img: 'm3_4.jpg', desc: 'Producto D' },
+                    { img: 'm3_5.jpg', desc: 'Producto E' },
+                    { img: 'm3_6.jpg', desc: 'Producto F' },
+                    { img: 'm3_7.jpg', desc: 'Producto G' }
+                ]
+            },
+            'marca4': {
+                name: 'AREMAR',
+                products: [
+                    { img: 'm4_1.jpg', desc: 'Detalle 1' },
+                    { img: 'm4_2.jpg', desc: 'Detalle 2' },
+                    { img: 'm4_3.jpg', desc: 'Detalle 3' },
+                    { img: 'm4_4.jpg', desc: 'Detalle 4' },
+                    { img: 'm4_5.jpg', desc: 'Detalle 5' },
+                    { img: 'm4_6.jpg', desc: 'Detalle 6' },
+                    { img: 'm4_7.jpg', desc: 'Detalle 7' }
+                ]
+            },
+            'marca5': {
+                name: 'BOBCAB',
+                products: [
+                    { img: 'm5_1.jpg', desc: 'Item 1' },
+                    { img: 'm5_2.jpg', desc: 'Item 2' },
+                    { img: 'm5_3.jpg', desc: 'Item 3' },
+                    { img: 'm5_4.jpg', desc: 'Item 4' },
+                    { img: 'm5_5.jpg', desc: 'Item 5' },
+                    { img: 'm5_6.jpg', desc: 'Item 6' },
+                    { img: 'm5_7.jpg', desc: 'Item 7' }
+                ]
             }
         };
-
         let currentGalleryPos = 0;
 
         function showBrandGallery(brandKey) {
