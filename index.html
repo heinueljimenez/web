@@ -12,6 +12,7 @@
         body { 
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
+            scroll-behavior: smooth;
         }
 
         /* Estilo Tekgraf: Transiciones y Sombras */
@@ -54,6 +55,18 @@
             cursor: pointer; transition: all 0.3s;
         }
         .dot.active { background: #2563eb; width: 30px; border-radius: 20px; }
+
+        /* Slider de Productos */
+        .product-slider-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            gap: 20px;
+        }
+        .product-card {
+            min-width: calc(100% / 4); /* Muestra 4 productos en PC */
+        }
+        @media (max-width: 1024px) { .product-card { min-width: calc(100% / 2); } }
+        @media (max-width: 640px) { .product-card { min-width: 100%; } }
 
         .footer-tek { background: #000; color: #fff; }
         .footer-col-title { font-weight: 900; text-transform: uppercase; margin-bottom: 20px; color: #fff; }
@@ -101,7 +114,7 @@
         </div>
         
         <div class="hidden lg:flex items-center gap-8 font-black text-[11px] uppercase tracking-widest">
-            <a href="#" class="hover:text-blue-600 transition-colors">Productos</a>
+            <a href="#productos-slider" class="hover:text-blue-600 transition-colors">Productos</a>
             <a href="#cotizador" class="text-blue-600">Tienda</a>
             <a href="#" class="hover:text-blue-600 transition-colors">Ofertas</a>
             <a href="#" class="hover:text-blue-600 transition-colors">Marcas</a>
@@ -158,6 +171,120 @@
             <div class="dot" onclick="goSlide(2)"></div>
             <div class="dot" onclick="goSlide(3)"></div>
             <div class="dot" onclick="goSlide(4)"></div>
+        </div>
+    </section>
+
+    <section id="productos-slider" class="py-24 bg-slate-50 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <span class="text-blue-600 font-black tracking-widest text-xs uppercase">Catálogo 2026</span>
+                    <h2 class="text-4xl font-black text-slate-900 uppercase italic">Nuestros <span class="text-blue-600">Productos</span></h2>
+                </div>
+                <div class="flex gap-4">
+                    <button onclick="prevProduct()" class="bg-white hover:bg-blue-600 hover:text-white text-slate-900 w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all border border-slate-200">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button onclick="nextProduct()" class="bg-white hover:bg-blue-600 hover:text-white text-slate-900 w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all border border-slate-200">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="product-slider-container" id="productContainer">
+                    <div class="product-card bg-white rounded-3xl overflow-hidden shadow-md border border-slate-100 group transition-all hover:shadow-xl">
+                        <div class="h-64 bg-slate-200 overflow-hidden">
+                            <img src="PRODUCTO_1.jpg" alt="Producto" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-black uppercase italic text-lg mb-2">Producto 1</h3>
+                            <p class="text-slate-500 text-sm font-medium">Descripción breve del producto de alta calidad aquí.</p>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white rounded-3xl overflow-hidden shadow-md border border-slate-100 group transition-all hover:shadow-xl">
+                        <div class="h-64 bg-slate-200">
+                            <img src="PRODUCTO_2.jpg" alt="Producto" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-black uppercase italic text-lg mb-2">Producto 2</h3>
+                            <p class="text-slate-500 text-sm font-medium">Descripción breve del producto de alta calidad aquí.</p>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white rounded-3xl overflow-hidden shadow-md border border-slate-100 group transition-all hover:shadow-xl">
+                        <div class="h-64 bg-slate-200">
+                            <img src="PRODUCTO_3.jpg" alt="Producto" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-black uppercase italic text-lg mb-2">Producto 3</h3>
+                            <p class="text-slate-500 text-sm font-medium">Descripción breve del producto de alta calidad aquí.</p>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white rounded-3xl overflow-hidden shadow-md border border-slate-100 group transition-all hover:shadow-xl">
+                        <div class="h-64 bg-slate-200">
+                            <img src="PRODUCTO_4.jpg" alt="Producto" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-black uppercase italic text-lg mb-2">Producto 4</h3>
+                            <p class="text-slate-500 text-sm font-medium">Descripción breve del producto de alta calidad aquí.</p>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white rounded-3xl overflow-hidden shadow-md border border-slate-100 group transition-all hover:shadow-xl">
+                        <div class="h-64 bg-slate-200">
+                            <img src="PRODUCTO_5.jpg" alt="Producto" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-black uppercase italic text-lg mb-2">Producto 5</h3>
+                            <p class="text-slate-500 text-sm font-medium">Descripción breve del producto de alta calidad aquí.</p>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white rounded-3xl overflow-hidden shadow-md border border-slate-100 group transition-all hover:shadow-xl">
+                        <div class="h-64 bg-slate-200">
+                            <img src="PRODUCTO_6.jpg" alt="Producto" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-black uppercase italic text-lg mb-2">Producto 6</h3>
+                            <p class="text-slate-500 text-sm font-medium">Descripción breve del producto de alta calidad aquí.</p>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white rounded-3xl overflow-hidden shadow-md border border-slate-100 group transition-all hover:shadow-xl">
+                        <div class="h-64 bg-slate-200">
+                            <img src="PRODUCTO_7.jpg" alt="Producto" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-black uppercase italic text-lg mb-2">Producto 7</h3>
+                            <p class="text-slate-500 text-sm font-medium">Descripción breve del producto de alta calidad aquí.</p>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white rounded-3xl overflow-hidden shadow-md border border-slate-100 group transition-all hover:shadow-xl">
+                        <div class="h-64 bg-slate-200">
+                            <img src="PRODUCTO_8.jpg" alt="Producto" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-black uppercase italic text-lg mb-2">Producto 8</h3>
+                            <p class="text-slate-500 text-sm font-medium">Descripción breve del producto de alta calidad aquí.</p>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white rounded-3xl overflow-hidden shadow-md border border-slate-100 group transition-all hover:shadow-xl">
+                        <div class="h-64 bg-slate-200">
+                            <img src="PRODUCTO_9.jpg" alt="Producto" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-black uppercase italic text-lg mb-2">Producto 9</h3>
+                            <p class="text-slate-500 text-sm font-medium">Descripción breve del producto de alta calidad aquí.</p>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white rounded-3xl overflow-hidden shadow-md border border-slate-100 group transition-all hover:shadow-xl">
+                        <div class="h-64 bg-slate-200">
+                            <img src="PRODUCTO_10.jpg" alt="Producto" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-black uppercase italic text-lg mb-2">Producto 10</h3>
+                            <p class="text-slate-500 text-sm font-medium">Descripción breve del producto de alta calidad aquí.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -270,7 +397,34 @@
             updateCarousel();
         }, 5000);
 
-        // ESTADO EN VIVO (ACTUALIZADO)
+        // PRODUCT SLIDER LOGIC
+        let productScroll = 0;
+        const productContainer = document.getElementById('productContainer');
+        const productCards = document.querySelectorAll('.product-card');
+        const totalProducts = productCards.length;
+
+        function nextProduct() {
+            // Calcula cuántas tarjetas caben según el ancho actual
+            const visibleCards = window.innerWidth > 1024 ? 4 : (window.innerWidth > 640 ? 2 : 1);
+            if (productScroll < totalProducts - visibleCards) {
+                productScroll++;
+                updateProductSlider();
+            }
+        }
+
+        function prevProduct() {
+            if (productScroll > 0) {
+                productScroll--;
+                updateProductSlider();
+            }
+        }
+
+        function updateProductSlider() {
+            const cardWidth = productCards[0].offsetWidth + 20; // Ancho + gap
+            productContainer.style.transform = `translateX(-${productScroll * cardWidth}px)`;
+        }
+
+        // ESTADO EN VIVO
         function updateStatus() {
             const h = new Date().getHours();
             const d = new Date().getDay();
