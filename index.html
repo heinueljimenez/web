@@ -405,8 +405,43 @@
     </section>
 
     <section id="cotizador" class="py-24 bg-white">
-        </section>
+    <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <span class="text-blue-600 font-black tracking-widest text-xs uppercase">Calcula tu presupuesto</span>
+            <h2 class="text-4xl font-black text-slate-900 uppercase italic">Cotizador <span class="text-blue-600">En Vivo</span></h2>
+            <p class="text-slate-500 font-bold mt-2">Agrega varios servicios y obtén descuentos por volumen al instante.</p>
+        </div>
 
+        <div class="bg-slate-50 rounded-[2rem] p-8 shadow-inner border border-slate-100">
+            <div id="itemsContainer" class="space-y-6">
+                </div>
+
+            <button onclick="addItem()" class="mt-8 flex items-center gap-2 text-slate-900 font-black uppercase italic text-xs hover:text-blue-600 transition-colors">
+                <i class="fas fa-plus-circle text-blue-600 text-lg"></i> Agregar otro artículo o servicio
+            </button>
+
+            <hr class="my-8 border-slate-200">
+
+            <div class="flex flex-col md:flex-row justify-between items-end gap-8">
+                <div class="flex items-center gap-4 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm w-full md:w-auto">
+                    <input type="checkbox" id="expressDelivery" onchange="calculateTotal()" class="w-5 h-5 accent-blue-600">
+                    <label for="expressDelivery" class="font-black uppercase italic text-[10px] tracking-widest">
+                        🚀 Orden Express (+20%) <br>
+                        <span class="text-slate-400 font-medium lowercase italic">Prioridad en producción</span>
+                    </label>
+                </div>
+
+                <div class="text-right w-full md:w-auto">
+                    <p class="text-slate-400 font-black uppercase text-[10px] tracking-[0.2em] mb-1">Total Estimado</p>
+                    <div class="text-5xl font-black text-slate-900 italic tracking-tighter" id="totalDisplay">RD$ 0</div>
+                    <button onclick="sendToWhatsApp()" class="mt-6 w-full bg-blue-600 text-white px-8 py-4 rounded-xl font-black uppercase italic tracking-widest hover:bg-slate-900 transition-all shadow-xl shadow-blue-600/20">
+                        Enviar pedido a WhatsApp <i class="fab fa-whatsapp ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
    <section class="py-20 px-6 max-w-7xl mx-auto">
     <div class="bg-white rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 p-8 flex flex-col md:flex-row gap-12 items-center">
         <div class="md:w-1/3">
@@ -583,6 +618,72 @@
             }
         }
         updateStatus();
+        // --- MOTOR DEL COTIZADOR ---
+        const SERVICES = {
+            'dtf_textil': { name: 'DTF Textil (Yarda)', price: 365, discount: 0.10, threshold: 10 },
+            'dtf_uv': { name: 'DTF UV (16x36")', price: 900, discount: 0.11, threshold: 5 },
+            'bordado_gorra': { name: 'Bordado Gorra', price: 450, discount: 0.25, threshold: 12 },
+            'sublimacion': { name: 'Sublimación Tumbler', price: 850, discount: 0.20, threshold: 10 }
+        };
+
+        let itemCount = 0;
+
+        function addItem() {
+            itemCount++;
+            const container = document.getElementById('itemsContainer');
+            if(!container) return;
+            const itemDiv = document.createElement('div');
+            itemDiv.id = `item-${itemCount}`;
+            itemDiv.className = "item-row bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 items-center";
+            itemDiv.innerHTML = `
+                <div class="flex-1 w-full">
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Servicio</label>
+                    <select onchange="calculateTotal()" class="service-select w-full bg-slate-50 border-none rounded-xl p-3 font-bold text-slate-900 focus:ring-2 focus:ring-blue-600">
+                        ${Object.keys(SERVICES).map(key => `<option value="${key}">${SERVICES[key].name}</option>`).join('')}
+                    </select>
+                </div>
+                <div class="w-32">
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Cantidad</label>
+                    <input type="number" value="1" min="1" oninput="calculateTotal()" class="quantity-input w-full bg-slate-50 border-none rounded-xl p-3 font-black text-center text-blue-600">
+                </div>
+                <div class="pt-6">
+                    <button onclick="removeItem(${itemCount})" class="text-slate-300 hover:text-red-500 transition-colors text-xl"><i class="fas fa-times-circle"></i></button>
+                </div>`;
+            container.appendChild(itemDiv);
+            calculateTotal();
+        }
+
+        function removeItem(id) {
+            if (document.querySelectorAll('.item-row').length > 1) {
+                document.getElementById(`item-${id}`).remove();
+                calculateTotal();
+            }
+        }
+
+        function calculateTotal() {
+            let total = 0;
+            document.querySelectorAll('.item-row').forEach(row => {
+                const s = SERVICES[row.querySelector('.service-select').value];
+                const q = parseInt(row.querySelector('.quantity-input').value) || 0;
+                let p = s.price;
+                if (q >= s.threshold) p *= (1 - s.discount);
+                total += p * q;
+            });
+            if (document.getElementById('expressDelivery')?.checked) total *= 1.20;
+            const disp = document.getElementById('totalDisplay');
+            if(disp) disp.innerText = `RD$ ${Math.round(total).toLocaleString()}`;
+        }
+
+        function sendToWhatsApp() {
+            let msg = "¡Hola! Cotización de La Cachucha:%0A";
+            document.querySelectorAll('.item-row').forEach(row => {
+                msg += `• ${row.querySelector('.quantity-input').value}x ${SERVICES[row.querySelector('.service-select').value].name}%0A`;
+            });
+            if (document.getElementById('expressDelivery').checked) msg += "🚀 *ORDEN EXPRESS*%0A";
+            msg += `*Total:* ${document.getElementById('totalDisplay').innerText}`;
+            window.open(`https://wa.me/18099140210?text=${msg}`);
+        }
+        addItem();
     </script>
 </body>
 </html>
