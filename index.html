@@ -627,18 +627,40 @@
     </div>
 </section>
 
-    <script>
-        // CARRUSEL LOGIC
+<script>
+        // --- 1. CONFIGURACIÓN Y VARIABLES ---
         let currentSlide = 0;
         const totalSlides = 5;
+        let productScroll = 0;
+        let currentGalleryPos = 0;
+
         const mainCarousel = document.getElementById('mainCarousel');
         const dots = document.querySelectorAll('.dot');
+        const productContainer = document.getElementById('productContainer');
+        const productCards = document.querySelectorAll('.product-card');
 
+        // Configuración de Precios y Descuentos (Escalable)
+        const SERVICES = {
+            'dtf_textil': { name: 'DTF Textil (22X36)', price: 350, discount: 0.08, threshold: 10 },
+            'dtf_uv': { name: 'DTF UV (16x36")', price: 900, discount: 0.10, threshold: 5 },
+            'bordado_gorra': { name: 'Bordado Gorra', price: 450, discount: 0.20, threshold: 12 },
+            'sublimacion': { name: 'Sublimación Tumbler', price: 850, discount: 0.15, threshold: 10 }
+        };
+
+        // Datos de las Marcas (Galerías)
+        const BRAND_DATA = {
+            'FOXIN': { name: 'FOXIN', products: [{ img: 'yk1.jpg', desc: 'Polo con Bordado 3D' }, { img: 'yk2.jpg', desc: 'Gorra DTF Premium' }, { img: 'yk3.jpg', desc: 'Jersey Sublimado' }] },
+            'UNICRESE': { name: 'UNICRESE', products: [{ img: 'm2_1.jpg', desc: 'Uniforme Empresarial' }, { img: 'm2_2.jpg', desc: 'Bordado Industrial' }] },
+            'YK': { name: 'YK YUCA', products: [{ img: 'm3_1.jpg', desc: 'Gorra Premium' }, { img: 'm3_2.jpg', desc: 'T-shirt Custom' }] },
+            'AREMAR': { name: 'AREMAR', products: [{ img: 'm4_1.jpg', desc: 'Detalle Especial' }] },
+            'BOBCAB': { name: 'BOBCAB', products: [{ img: 'm5_1.jpg', desc: 'Item Colección' }] }
+        };
+
+        // --- 2. CARRUSEL PRINCIPAL (HERO) ---
         function updateCarousel() {
+            if (!mainCarousel) return;
             mainCarousel.style.transform = `translateX(-${currentSlide * 20}%)`;
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentSlide);
-            });
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
         }
 
         function goSlide(n) {
@@ -646,167 +668,115 @@
             updateCarousel();
             resetCarouselTimer();
         }
-        // LÓGICA SWIPE (DESLIZAR CON EL DEDO)
-        let touchStartX = 0;
-        let touchEndX = 0;
 
-        mainCarousel.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, {passive: true});
-
-        mainCarousel.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, {passive: true});
-
-        function handleSwipe() {
-            const swipeThreshold = 50; 
-            if (touchStartX - touchEndX > swipeThreshold) {
-                // Deslizar a la izquierda -> Siguiente
-                currentSlide = (currentSlide + 1) % totalSlides;
-                updateCarousel();
-                resetCarouselTimer(); // <--- AGREGA ESTO AQUÍ
-            } else if (touchEndX - touchStartX > swipeThreshold) {
-                // Deslizar a la derecha -> Anterior
-                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                updateCarousel();
-                resetCarouselTimer(); // <--- AGREGA ESTO AQUÍ
-            }
-        }
-
-        // Nueva lógica con auto-play que se puede resetear
-        let carouselTimer = setInterval(autoNextSlide, 5000);
-
-        function autoNextSlide() {
+        let carouselTimer = setInterval(() => {
             currentSlide = (currentSlide + 1) % totalSlides;
             updateCarousel();
-        }
+        }, 5000);
 
         function resetCarouselTimer() {
-            clearInterval(carouselTimer); // Detiene el reloj actual
-            carouselTimer = setInterval(autoNextSlide, 5000); // Lo inicia desde cero
+            clearInterval(carouselTimer);
+            carouselTimer = setInterval(() => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateCarousel();
+            }, 5000);
         }
 
-        function prevProduct() {
-            if (productScroll > 0) {
-                productScroll--;
-                updateProductSlider();
-            }
+        // --- 3. SLIDERS (OFERTAS FLASH Y PRODUCTOS) ---
+        function scrollOffers(direction) {
+            const slider = document.getElementById('offersSlider');
+            if (slider) slider.scrollBy({ left: direction * 300, behavior: 'smooth' });
         }
 
         function updateProductSlider() {
-            // Primero verificamos si realmente hay tarjetas de producto
-            if (productCards.length > 0) {
-                const cardWidth = productCards[0].offsetWidth + 20;
-                productContainer.style.transform = `translateX(-${productScroll * cardWidth}px)`;
-            }
+            if (!productContainer || productCards.length === 0) return;
+            const cardWidth = productCards[0].offsetWidth + 20;
+            productContainer.style.transform = `translateX(-${productScroll * cardWidth}px)`;
         }
-        } // <--- Esta es la llave que ya tienes
-        }
-
-        // --- PEGA EL NUEVO CÓDIGO AQUÍ (ENTRE AMBOS) ---
-
-        let productScroll = 0; 
-        const productContainer = document.getElementById('productContainer');
-        const productCards = document.querySelectorAll('.product-card');
 
         function nextProduct() {
-            const visibleCards = window.innerWidth > 1024 ? 4 : (window.innerWidth > 640 ? 2 : 1);
-            if (productScroll < productCards.length - visibleCards) {
-                productScroll++;
-                updateProductSlider();
+            const visible = window.innerWidth > 1024 ? 4 : (window.innerWidth > 640 ? 2 : 1);
+            if (productScroll < productCards.length - visible) { 
+                productScroll++; 
+                updateProductSlider(); 
             }
         }
 
         function prevProduct() {
-            if (productScroll > 0) {
-                productScroll--;
-                updateProductSlider();
+            if (productScroll > 0) { 
+                productScroll--; 
+                updateProductSlider(); 
             }
         }
 
-        function updateProductSlider() {
-            if (productCards.length > 0 && productContainer) {
-                const cardWidth = productCards[0].offsetWidth + 20;
-                productContainer.style.transform = `translateX(-${productScroll * cardWidth}px)`;
+        // --- 4. SECCIÓN MARCAS Y GALERÍA ---
+        function showBrandGallery(brandKey) {
+            const data = BRAND_DATA[brandKey];
+            if(!data) return;
+            document.getElementById('marcas-grid').classList.add('hidden');
+            document.getElementById('marcas-header').classList.add('hidden');
+            document.getElementById('brand-gallery-container').classList.remove('hidden');
+            document.getElementById('brand-name-display').innerText = data.name;
+            
+            const slider = document.getElementById('brand-slider');
+            slider.innerHTML = data.products.map(p => `
+                <div onclick="openModal('${p.img}', '${p.desc}')" class="min-w-[280px] bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer">
+                    <img src="${p.img}" class="w-full h-64 object-cover">
+                    <p class="p-4 font-black uppercase italic text-sm text-center text-slate-800">${p.desc}</p>
+                </div>`).join('');
+            currentGalleryPos = 0;
+            slider.style.transform = `translateX(0px)`;
+        }
+
+        function hideBrandGallery() {
+            document.getElementById('marcas-grid').classList.remove('hidden');
+            document.getElementById('marcas-header').classList.remove('hidden');
+            document.getElementById('brand-gallery-container').classList.add('hidden');
+        }
+
+        function slideGallery(dir) {
+            const slider = document.getElementById('brand-slider');
+            if(!slider) return;
+            // Limita el scroll para no desplazarse al vacío
+            currentGalleryPos = Math.max(Math.min(currentGalleryPos - (dir * 300), 0), -1200);
+            slider.style.transform = `translateX(${currentGalleryPos}px)`;
+        }
+
+        // --- 5. GESTOS TÁCTILES (MOBILE) ---
+        let startX = 0;
+        document.addEventListener('touchstart', e => { startX = e.changedTouches[0].screenX; }, {passive: true});
+        document.addEventListener('touchend', e => {
+            let diff = startX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) < 50) return; // Umbral de sensibilidad
+
+            if (e.target.closest('#mainCarousel')) {
+                currentSlide = diff > 0 ? (currentSlide + 1) % totalSlides : (currentSlide - 1 + totalSlides) % totalSlides;
+                updateCarousel(); resetCarouselTimer();
+            } else if (e.target.closest('#productContainer')) {
+                diff > 0 ? nextProduct() : prevProduct();
+            } else if (e.target.closest('#brand-slider')) {
+                slideGallery(diff > 0 ? 1 : -1);
             }
-        }
+        }, {passive: true});
 
-        let prodStartX = 0;
-        if(productContainer) {
-            productContainer.addEventListener('touchstart', e => {
-                prodStartX = e.changedTouches[0].screenX;
-            }, {passive: true});
-
-            productContainer.addEventListener('touchend', e => {
-                let endX = e.changedTouches[0].screenX;
-                if (prodStartX - endX > 50) nextProduct();
-                if (endX - prodStartX > 50) prevProduct();
-            }, {passive: true});
-        }
-
-        // --- AQUÍ TERMINA LO NUEVO ---
-
-        // ESTADO EN VIVO
-        function updateStatus() { 
-            // ... resto de tu código
-        // ESTADO EN VIVO
-        function updateStatus() {
-            const h = new Date().getHours();
-            const d = new Date().getDay();
-            const badge = document.getElementById('statusBadge');
-            const text = document.getElementById('statusText');
-            const dot = document.getElementById('statusDot');
-            const ping = document.getElementById('statusDotPing');
-
-            let isOpen = false;
-            if(d >= 1 && d <= 5 && h >= 9 && h < 18) isOpen = true;
-            if(d === 6 && h >= 9 && h < 13) isOpen = true;
-
-            if(isOpen) {
-                text.innerText = "Abierto";
-                dot.classList.add('bg-green-500');
-                badge.classList.add('text-green-500');
-            } else {
-                text.innerText = "Cerrado";
-                dot.classList.add('bg-red-500');
-                badge.classList.add('text-red-500');
-                ping.classList.add('hidden');
-            }
-        }
-        updateStatus();
-        // --- MOTOR DEL COTIZADOR ---
-        const SERVICES = {
-            'dtf_textil': { name: 'DTF Textil (22X36)', price: 350, discount: 0.8, threshold: 10 },
-            'dtf_uv': { name: 'DTF UV (16x36")', price: 900, discount: 0.8, threshold: 5 },
-            'bordado_gorra': { name: 'Bordado Gorra', price: 450, discount: 0.20, threshold: 12 },
-            'sublimacion': { name: 'Sublimación Tumbler', price: 850, discount: 0.20, threshold: 10 }
-        };
-
+        // --- 6. MOTOR DEL COTIZADOR ---
         let itemCount = 0;
-
         function addItem() {
             itemCount++;
             const container = document.getElementById('itemsContainer');
             if(!container) return;
-            const itemDiv = document.createElement('div');
-            itemDiv.id = `item-${itemCount}`;
-            itemDiv.className = "item-row bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 items-center";
-            itemDiv.innerHTML = `
-                <div class="flex-1 w-full">
-                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Servicio</label>
-                    <select onchange="calculateTotal()" class="service-select w-full bg-slate-50 border-none rounded-xl p-3 font-bold text-slate-900 focus:ring-2 focus:ring-blue-600">
-                        ${Object.keys(SERVICES).map(key => `<option value="${key}">${SERVICES[key].name}</option>`).join('')}
-                    </select>
-                </div>
-                <div class="w-32">
-                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Cantidad</label>
-                    <input type="number" value="1" min="1" oninput="calculateTotal()" class="quantity-input w-full bg-slate-50 border-none rounded-xl p-3 font-black text-center text-blue-600">
-                </div>
-                <div class="pt-6">
-                    <button onclick="removeItem(${itemCount})" class="text-slate-300 hover:text-red-500 transition-colors text-xl"><i class="fas fa-times-circle"></i></button>
+            const div = document.createElement('div');
+            div.id = `item-${itemCount}`;
+            div.className = "item-row bg-white p-4 rounded-xl border border-slate-100 mb-4 flex flex-col md:flex-row gap-4 items-center";
+            div.innerHTML = `
+                <select onchange="calculateTotal()" class="service-select flex-1 w-full p-2 bg-slate-50 rounded-lg font-bold">
+                    ${Object.keys(SERVICES).map(k => `<option value="${k}">${SERVICES[k].name}</option>`).join('')}
+                </select>
+                <div class="flex items-center gap-4">
+                    <input type="number" value="1" min="1" oninput="calculateTotal()" class="quantity-input w-24 p-2 bg-slate-50 rounded-lg text-center font-black text-blue-600">
+                    <button onclick="removeItem(${itemCount})" class="text-slate-300 hover:text-red-500 transition-colors"><i class="fas fa-trash"></i></button>
                 </div>`;
-            container.appendChild(itemDiv);
+            container.appendChild(div);
             calculateTotal();
         }
 
@@ -822,9 +792,9 @@
             document.querySelectorAll('.item-row').forEach(row => {
                 const s = SERVICES[row.querySelector('.service-select').value];
                 const q = parseInt(row.querySelector('.quantity-input').value) || 0;
-                let p = s.price;
-                if (q >= s.threshold) p *= (1 - s.discount);
-                total += p * q;
+                let price = s.price;
+                if (q >= s.threshold) price *= (1 - s.discount); // Aplicar descuento por volumen
+                total += price * q;
             });
             if (document.getElementById('expressDelivery')?.checked) total *= 1.20;
             const disp = document.getElementById('totalDisplay');
@@ -832,157 +802,68 @@
         }
 
         function sendToWhatsApp() {
-            let msg = "¡Hola! Cotización de La Cachucha:%0A";
+            let msg = "¡Hola! Cotización de La Cachucha Graphic:%0A%0A";
             document.querySelectorAll('.item-row').forEach(row => {
-                msg += `• ${row.querySelector('.quantity-input').value}x ${SERVICES[row.querySelector('.service-select').value].name}%0A`;
+                const name = SERVICES[row.querySelector('.service-select').value].name;
+                const qty = row.querySelector('.quantity-input').value;
+                msg += `• ${qty}x ${name}%0A`;
             });
-            if (document.getElementById('expressDelivery').checked) msg += "🚀 *ORDEN EXPRESS*%0A";
-            msg += `*Total:* ${document.getElementById('totalDisplay').innerText}`;
+            if (document.getElementById('expressDelivery')?.checked) msg += "%0A🚀 *ORDEN EXPRESS (Entrega prioritaria)*%0A";
+            msg += `%0A*Total Estimado:* ${document.getElementById('totalDisplay').innerText}`;
             window.open(`https://wa.me/18099140210?text=${msg}`);
         }
-        const BRAND_DATA = {
-            'FOXIN': { // Antes era 'yk'
-                name: 'FOXIN',
-                products: [
-                    { img: 'yk1.jpg', desc: 'Polo con Bordado 3D' },
-                    { img: 'yk2.jpg', desc: 'Gorra DTF Premium' },
-                    { img: 'yk3.jpg', desc: 'Jersey Sublimado' },
-                    { img: 'yk4.jpg', desc: 'Parche Termo' },
-                    { img: 'yk5.jpg', desc: 'Uniforme Corp' },
-                    { img: 'yk6.jpg', desc: 'Tshirt DTF' },
-                    { img: 'yk7.jpg', desc: 'Chaqueta Personalizada' }
-                ]
-            },
-            'UNICRESE': { // Antes era 'marca2'
-                name: 'UNICRESE',
-                products: [
-                    { img: 'm2_1.jpg', desc: 'Descripción 1' },
-                    { img: 'm2_2.jpg', desc: 'Descripción 2' },
-                    { img: 'm2_3.jpg', desc: 'Descripción 3' },
-                    { img: 'm2_4.jpg', desc: 'Descripción 4' },
-                    { img: 'm2_5.jpg', desc: 'Descripción 5' },
-                    { img: 'm2_6.jpg', desc: 'Descripción 6' },
-                    { img: 'm2_7.jpg', desc: 'Descripción 7' }
-                ]
-            },
-            'YK': { // Antes era 'marca3'
-                name: 'YK YUCA',
-                products: [
-                    { img: 'm3_1.jpg', desc: 'Producto A' },
-                    { img: 'm3_2.jpg', desc: 'Producto B' },
-                    { img: 'm3_3.jpg', desc: 'Producto C' },
-                    { img: 'm3_4.jpg', desc: 'Producto D' },
-                    { img: 'm3_5.jpg', desc: 'Producto E' },
-                    { img: 'm3_6.jpg', desc: 'Producto F' },
-                    { img: 'm3_7.jpg', desc: 'Producto G' }
-                ]
-            },
-            'AREMAR': { // Antes era 'marca4'
-                name: 'AREMAR',
-                products: [
-                    { img: 'm4_1.jpg', desc: 'Detalle 1' },
-                    { img: 'm4_2.jpg', desc: 'Detalle 2' },
-                    { img: 'm4_3.jpg', desc: 'Detalle 3' },
-                    { img: 'm4_4.jpg', desc: 'Detalle 4' },
-                    { img: 'm4_5.jpg', desc: 'Detalle 5' },
-                    { img: 'm4_6.jpg', desc: 'Detalle 6' },
-                    { img: 'm4_7.jpg', desc: 'Detalle 7' }
-                ]
-            },
-            'BOBCAB': { // Antes era 'marca5'
-                name: 'BOBCAB',
-                products: [
-                    { img: 'm5_1.jpg', desc: 'Item 1' },
-                    { img: 'm5_2.jpg', desc: 'Item 2' },
-                    { img: 'm5_3.jpg', desc: 'Item 3' },
-                    { img: 'm5_4.jpg', desc: 'Item 4' },
-                    { img: 'm5_5.jpg', desc: 'Item 5' },
-                    { img: 'm5_6.jpg', desc: 'Item 6' },
-                    { img: 'm5_7.jpg', desc: 'Item 7' }
-                ]
+
+        // --- 7. ESTADO EN VIVO Y MODAL ---
+        function updateStatus() {
+            const now = new Date();
+            const h = now.getHours();
+            const d = now.getDay();
+            // Lun-Vie: 9am-6pm | Sáb: 9am-1pm
+            const isOpen = (d >= 1 && d <= 5 && h >= 9 && h < 18) || (d === 6 && h >= 9 && h < 13);
+            
+            const dot = document.getElementById('statusDot');
+            const text = document.getElementById('statusText');
+            const ping = document.getElementById('statusDotPing');
+            
+            if(text) text.innerText = isOpen ? "Abierto" : "Cerrado";
+            if(dot) {
+                dot.classList.remove('bg-green-500', 'bg-red-500');
+                dot.classList.add(isOpen ? 'bg-green-500' : 'bg-red-500');
             }
-        };
-        let currentGalleryPos = 0;
-
-        function showBrandGallery(brandKey) {
-            const data = BRAND_DATA[brandKey];
-            if(!data) return;
-            document.getElementById('marcas-grid').classList.add('hidden');
-            document.getElementById('marcas-header').classList.add('hidden');
-            document.getElementById('brand-gallery-container').classList.remove('hidden');
-            document.getElementById('brand-name-display').innerText = data.name;
-            const slider = document.getElementById('brand-slider');
-            slider.innerHTML = data.products.map(p => `
-                <div onclick="openModal('${p.img}', '${p.desc}')" class="min-w-[280px] bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm cursor-zoom-in hover:shadow-xl transition-all group">
-                    <div class="relative overflow-hidden">
-                        <img src="${p.img}" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <i class="fas fa-search-plus text-white text-3xl"></i>
-                        </div>
-                    </div>
-                    <div class="p-4 text-center">
-                        <p class="font-black text-slate-900 text-sm uppercase italic tracking-tighter">${p.desc}</p>
-                    </div>
-                </div>
-            `).join('');
-            currentGalleryPos = 0;
-            slider.style.transform = `translateX(0px)`;
+            if(ping && !isOpen) ping.classList.add('hidden');
         }
 
-        function hideBrandGallery() {
-            document.getElementById('marcas-grid').classList.remove('hidden');
-            document.getElementById('marcas-header').classList.remove('hidden');
-            document.getElementById('brand-gallery-container').classList.add('hidden');
-        }
-
-        function slideGallery(dir) {
-            const slider = document.getElementById('brand-slider');
-            const step = 300; 
-            currentGalleryPos = Math.max(Math.min(currentGalleryPos - (dir * step), 0), -(step * 4)); 
-            slider.style.transform = `translateX(${currentGalleryPos}px)`;
-        }
-            // --- ACTIVAR DESLIZAMIENTO CON EL DEDO EN LA GALERÍA DE MARCAS ---
-        let brandStartX = 0;
-        const brandSlider = document.getElementById('brand-slider');
-
-        brandSlider.addEventListener('touchstart', e => {
-            brandStartX = e.changedTouches[0].screenX;
-        }, {passive: true});
-
-        brandSlider.addEventListener('touchend', e => {
-            let endX = e.changedTouches[0].screenX;
-            const threshold = 50; // Sensibilidad
-            if (brandStartX - endX > threshold) {
-                slideGallery(1);  // Desliza a la izquierda (Siguiente)
-            } else if (endX - brandStartX > threshold) {
-                slideGallery(-1); // Desliza a la derecha (Anterior)
-            }
-        }, {passive: true});
-        function openModal(imgSrc, description) {
+        function openModal(img, desc) {
             let modal = document.getElementById('imageModal');
             if(!modal) {
-                const modalHTML = `
-                <div id="imageModal" class="hidden fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 backdrop-blur-sm">
-                    <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-4xl hover:text-blue-500"><i class="fas fa-times"></i></button>
-                    <div class="max-w-4xl w-full flex flex-col items-center">
-                        <img id="modalImg" src="" class="max-h-[80vh] rounded-2xl shadow-2xl border border-white/10 object-contain">
-                        <p id="modalDesc" class="mt-6 text-white text-xl font-black uppercase italic text-center"></p>
-                    </div>
-                </div>`;
-                document.body.insertAdjacentHTML('beforeend', modalHTML);
+                document.body.insertAdjacentHTML('beforeend', `
+                    <div id="imageModal" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm">
+                        <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-4xl hover:text-blue-500"><i class="fas fa-times"></i></button>
+                        <div class="max-w-4xl w-full text-center">
+                            <img id="modalImg" src="" class="max-h-[80vh] mx-auto rounded-xl shadow-2xl border border-white/10">
+                            <p id="modalDesc" class="mt-4 text-white text-xl font-bold uppercase italic"></p>
+                        </div>
+                    </div>`);
                 modal = document.getElementById('imageModal');
             }
-            document.getElementById('modalImg').src = imgSrc;
-            document.getElementById('modalDesc').innerText = description;
+            document.getElementById('modalImg').src = img;
+            document.getElementById('modalDesc').innerText = desc;
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
-            document.getElementById('imageModal').classList.add('hidden');
+            const modal = document.getElementById('imageModal');
+            if(modal) modal.classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
-        addItem();
+
+        // Inicialización Total
+        window.onload = () => {
+            updateStatus();
+            addItem();
+            window.addEventListener('resize', updateProductSlider);
+        };
     </script>
 </body>
 </html>
