@@ -701,7 +701,55 @@
                 productContainer.style.transform = `translateX(-${productScroll * cardWidth}px)`;
             }
         }
-        
+        } // <--- Esta es la llave que ya tienes
+        }
+
+        // --- PEGA EL NUEVO CÓDIGO AQUÍ (ENTRE AMBOS) ---
+
+        let productScroll = 0; 
+        const productContainer = document.getElementById('productContainer');
+        const productCards = document.querySelectorAll('.product-card');
+
+        function nextProduct() {
+            const visibleCards = window.innerWidth > 1024 ? 4 : (window.innerWidth > 640 ? 2 : 1);
+            if (productScroll < productCards.length - visibleCards) {
+                productScroll++;
+                updateProductSlider();
+            }
+        }
+
+        function prevProduct() {
+            if (productScroll > 0) {
+                productScroll--;
+                updateProductSlider();
+            }
+        }
+
+        function updateProductSlider() {
+            if (productCards.length > 0 && productContainer) {
+                const cardWidth = productCards[0].offsetWidth + 20;
+                productContainer.style.transform = `translateX(-${productScroll * cardWidth}px)`;
+            }
+        }
+
+        let prodStartX = 0;
+        if(productContainer) {
+            productContainer.addEventListener('touchstart', e => {
+                prodStartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+
+            productContainer.addEventListener('touchend', e => {
+                let endX = e.changedTouches[0].screenX;
+                if (prodStartX - endX > 50) nextProduct();
+                if (endX - prodStartX > 50) prevProduct();
+            }, {passive: true});
+        }
+
+        // --- AQUÍ TERMINA LO NUEVO ---
+
+        // ESTADO EN VIVO
+        function updateStatus() { 
+            // ... resto de tu código
         // ESTADO EN VIVO
         function updateStatus() {
             const h = new Date().getHours();
@@ -893,7 +941,23 @@
             currentGalleryPos = Math.max(Math.min(currentGalleryPos - (dir * step), 0), -(step * 4)); 
             slider.style.transform = `translateX(${currentGalleryPos}px)`;
         }
+            // --- ACTIVAR DESLIZAMIENTO CON EL DEDO EN LA GALERÍA DE MARCAS ---
+        let brandStartX = 0;
+        const brandSlider = document.getElementById('brand-slider');
 
+        brandSlider.addEventListener('touchstart', e => {
+            brandStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        brandSlider.addEventListener('touchend', e => {
+            let endX = e.changedTouches[0].screenX;
+            const threshold = 50; // Sensibilidad
+            if (brandStartX - endX > threshold) {
+                slideGallery(1);  // Desliza a la izquierda (Siguiente)
+            } else if (endX - brandStartX > threshold) {
+                slideGallery(-1); // Desliza a la derecha (Anterior)
+            }
+        }, {passive: true});
         function openModal(imgSrc, description) {
             let modal = document.getElementById('imageModal');
             if(!modal) {
