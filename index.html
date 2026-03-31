@@ -644,35 +644,47 @@
         function goSlide(n) {
             currentSlide = n;
             updateCarousel();
+            resetCarouselTimer();
+        }
+        // LÓGICA SWIPE (DESLIZAR CON EL DEDO)
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        mainCarousel.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        mainCarousel.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            const swipeThreshold = 50; 
+            if (touchStartX - touchEndX > swipeThreshold) {
+                // Deslizar a la izquierda -> Siguiente
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateCarousel();
+                resetCarouselTimer(); // <--- AGREGA ESTO AQUÍ
+            } else if (touchEndX - touchStartX > swipeThreshold) {
+                // Deslizar a la derecha -> Anterior
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+                resetCarouselTimer(); // <--- AGREGA ESTO AQUÍ
+            }
         }
 
-        setInterval(() => {
+        // Nueva lógica con auto-play que se puede resetear
+        let carouselTimer = setInterval(autoNextSlide, 5000);
+
+        function autoNextSlide() {
             currentSlide = (currentSlide + 1) % totalSlides;
             updateCarousel();
-        }, 5000);
-
-        // LOGICA DESLIZAR OFERTAS (MOUSE)
-        function scrollOffers(direction) {
-            const slider = document.getElementById('offersSlider');
-            const scrollAmount = slider.clientWidth; // Desplaza el ancho visible
-            slider.scrollBy({
-                left: direction * scrollAmount,
-                behavior: 'smooth'
-            });
         }
 
-        // PRODUCT SLIDER LOGIC
-        let productScroll = 0;
-        const productContainer = document.getElementById('productContainer');
-        const productCards = document.querySelectorAll('.product-card');
-        const totalProducts = productCards.length;
-
-        function nextProduct() {
-            const visibleCards = window.innerWidth > 1024 ? 4 : (window.innerWidth > 640 ? 2 : 1);
-            if (productScroll < totalProducts - visibleCards) {
-                productScroll++;
-                updateProductSlider();
-            }
+        function resetCarouselTimer() {
+            clearInterval(carouselTimer); // Detiene el reloj actual
+            carouselTimer = setInterval(autoNextSlide, 5000); // Lo inicia desde cero
         }
 
         function prevProduct() {
@@ -683,10 +695,13 @@
         }
 
         function updateProductSlider() {
-            const cardWidth = productCards[0].offsetWidth + 20;
-            productContainer.style.transform = `translateX(-${productScroll * cardWidth}px)`;
+            // Primero verificamos si realmente hay tarjetas de producto
+            if (productCards.length > 0) {
+                const cardWidth = productCards[0].offsetWidth + 20;
+                productContainer.style.transform = `translateX(-${productScroll * cardWidth}px)`;
+            }
         }
-
+        
         // ESTADO EN VIVO
         function updateStatus() {
             const h = new Date().getHours();
