@@ -18,6 +18,17 @@
         /* Estilo Tekgraf: Transiciones y Sombras */
         .header-top { background-color: #000; color: #fff; font-size: 11px; }
         .nav-main { background-color: #fff; border-bottom: 1px solid #eee; }
+        /* Estilo Tekgraf: Transiciones y Sombras */
+        .header-top { background-color: #000; color: #fff; font-size: 11px; }
+        .nav-main { background-color: #fff; border-bottom: 1px solid #eee; transition: all 0.3s ease; }
+
+        /* --- PEGA ESTO AQUÍ PARA EL MODO OSCURO --- */
+        body.dark { background-color: #0f172a; color: #f1f5f9; }
+        .dark .nav-main { background-color: #1e293b; border-bottom: 1px solid #334155; }
+        .dark .nav-main span { color: #f1f5f9; }
+        .dark section.bg-white { background-color: #1e293b !important; color: #f1f5f9; }
+        .dark section.bg-slate-50 { background-color: #0f172a !important; }
+        .dark .item-row { background-color: #334155; border-color: #475569; color: white; }
         
         /* Carrusel Pantalla Completa (Full Width) */
         .carousel-wrapper { position: relative; width: 100%; overflow: hidden; height: 600px; }
@@ -151,6 +162,9 @@
             <div class="flex flex-col">
                 <span class="font-black text-lg tracking-tighter uppercase leading-none">La Cachucha Graphic</span>
                 <span class="text-[8px] font-bold text-blue-600 tracking-[0.3em]">SERVICIOS GRÁFICOS</span>
+                <button onclick="toggleDarkMode()" class="ml-4 p-2 rounded-full hover:bg-slate-100 transition-all" id="dark-mode-btn">
+    <i class="fas fa-moon text-slate-600" id="dark-icon"></i>
+</button>
             </div>
         </div>
         
@@ -857,7 +871,21 @@
             if(modal) modal.classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
-
+    function toggleDarkMode() {
+            const body = document.body;
+            const icon = document.getElementById('dark-icon');
+            
+            body.classList.toggle('dark');
+            
+            // Cambiar el ícono de luna a sol
+            if (body.classList.contains('dark')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                icon.style.color = '#fbbf24'; // Color amarillo sol
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                icon.style.color = '#475569';
+            }
+        }
         // Inicialización Total
         window.onload = () => {
             updateStatus();
