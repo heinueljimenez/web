@@ -404,52 +404,77 @@
     </section>
     
     <section id="marcas" class="py-16 bg-slate-50 border-b border-slate-200">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <span class="text-blue-600 font-black tracking-widest text-[10px] uppercase">Confían en nosotros</span>
-                <h2 class="text-3xl font-black text-slate-900 uppercase italic">Marcas <span class="text-blue-600">Aliadas</span></h2>
+    <div class="max-w-6xl mx-auto px-6">
+        
+        <div id="marcas-header" class="text-center mb-12">
+            <span class="text-blue-600 font-black tracking-widest text-[10px] uppercase">Nuestras Alianzas</span>
+            <h2 class="text-3xl font-black text-slate-900 uppercase italic">Marcas <span class="text-blue-600">Aliadas</span></h2>
+        </div>
+
+        <div id="marcas-grid" class="grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-items-center">
+            
+            <div onclick="showBrandGallery('yk')" class="flex flex-col items-center group cursor-pointer">
+                <div class="w-28 h-28 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center p-4 shadow-sm group-hover:border-blue-600 transition-all">
+                    <img src="LOGO_YK.jpg" alt="YK" class="w-full h-full object-contain grayscale group-hover:grayscale-0">
+                </div>
+                <span class="mt-4 font-black uppercase italic text-[10px] tracking-widest text-slate-400 group-hover:text-slate-900">Marca YK</span>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-items-center">
+            <div onclick="showBrandGallery('marca2')" class="flex flex-col items-center group cursor-pointer">
+                <div class="w-28 h-28 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center p-4 shadow-sm group-hover:border-blue-600 transition-all">
+                    <img src="LOGO_2.jpg" alt="Marca 2" class="w-full h-full object-contain grayscale group-hover:grayscale-0">
+                </div>
+                <span class="mt-4 font-black uppercase italic text-[10px] tracking-widest text-slate-400 group-hover:text-slate-900">Nombre Marca</span>
+            </div>
+
+            <div onclick="showBrandGallery('marca3')" class="flex flex-col items-center group cursor-pointer">
+                <div class="w-28 h-28 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center p-4 shadow-sm group-hover:border-blue-600 transition-all">
+                    <img src="LOGO_3.jpg" alt="Marca 3" class="w-full h-full object-contain grayscale group-hover:grayscale-0">
+                </div>
+                <span class="mt-4 font-black uppercase italic text-[10px] tracking-widest text-slate-400 group-hover:text-slate-900">Nombre Marca</span>
+            </div>
+
+            <div onclick="showBrandGallery('marca4')" class="flex flex-col items-center group cursor-pointer">
+                <div class="w-28 h-28 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center p-4 shadow-sm group-hover:border-blue-600 transition-all">
+                    <img src="LOGO_4.jpg" alt="Marca 4" class="w-full h-full object-contain grayscale group-hover:grayscale-0">
+                </div>
+                <span class="mt-4 font-black uppercase italic text-[10px] tracking-widest text-slate-400 group-hover:text-slate-900">Nombre Marca</span>
+            </div>
+
+            <div onclick="showBrandGallery('marca5')" class="flex flex-col items-center group cursor-pointer">
+                <div class="w-28 h-28 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center p-4 shadow-sm group-hover:border-blue-600 transition-all">
+                    <img src="LOGO_5.jpg" alt="Marca 5" class="w-full h-full object-contain grayscale group-hover:grayscale-0">
+                </div>
+                <span class="mt-4 font-black uppercase italic text-[10px] tracking-widest text-slate-400 group-hover:text-slate-900">Nombre Marca</span>
+            </div>
+
+        </div>
+
+        <div id="brand-gallery-container" class="hidden mt-10">
+            <button onclick="hideBrandGallery()" class="mb-8 flex items-center gap-2 text-slate-900 font-black uppercase italic text-xs hover:text-blue-600 transition-colors">
+                <i class="fas fa-arrow-left text-blue-600"></i> Volver a marcas
+            </button>
+            
+            <div class="text-2xl font-black text-slate-900 uppercase italic mb-8">
+                Productos Destacados: <span id="brand-name-display" class="text-blue-600">---</span>
+            </div>
+
+            <div class="relative group">
+                <div class="overflow-hidden rounded-2xl">
+                    <div id="brand-slider" class="flex transition-transform duration-500 ease-in-out gap-4" style="transform: translateX(0px);">
+                        </div>
+                </div>
                 
-                <div class="flex flex-col items-center group">
-                    <div class="w-32 h-32 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center p-4 overflow-hidden shadow-sm group-hover:border-blue-600 transition-all duration-300">
-                        <img src="FOXIN.jpg" alt="Logo Marca YK" class="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all">
-                    </div>
-                    <span class="mt-4 font-black uppercase italic text-[13px] tracking-widest text-slate-400 group-hover:text-slate-900 text-center">FOXIN</span>
-                </div>
-
-                <div class="flex flex-col items-center group">
-                    <div class="w-32 h-32 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center p-4 overflow-hidden shadow-sm group-hover:border-blue-600 transition-all duration-300">
-                        <img src="UNICRESE.jpg" alt="Marca 2" class="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all">
-                    </div>
-                    <span class="mt-4 font-black uppercase italic text-[13px] tracking-widest text-slate-400 group-hover:text-slate-900 text-center">UNICRESE</span>
-                </div>
-
-                <div class="flex flex-col items-center group">
-                    <div class="w-32 h-32 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center p-4 overflow-hidden shadow-sm group-hover:border-blue-600 transition-all duration-300">
-                        <img src="YUCA.jpg" alt="Marca 3" class="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all">
-                    </div>
-                    <span class="mt-4 font-black uppercase italic text-[14px] tracking-widest text-slate-400 group-hover:text-slate-900 text-center">YUCA CAMISETAS</span>
-                </div>
-
-                <div class="flex flex-col items-center group">
-                    <div class="w-32 h-32 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center p-4 overflow-hidden shadow-sm group-hover:border-blue-600 transition-all duration-300">
-                        <img src="AREMAR.jpg" alt="Marca 4" class="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all">
-                    </div>
-                    <span class="mt-4 font-black uppercase italic text-[13px] tracking-widest text-slate-400 group-hover:text-slate-900 text-center">AREMAR</span>
-                </div>
-
-                <div class="flex flex-col items-center group">
-                    <div class="w-32 h-32 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center p-4 overflow-hidden shadow-sm group-hover:border-blue-600 transition-all duration-300">
-                        <img src="BOBCAB.jpg" alt="Marca 5" class="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all">
-                    </div>
-                    <span class="mt-4 font-black uppercase italic text-[13px] tracking-widest text-slate-400 group-hover:text-slate-900 text-center">BOBCAB</span>
-                </div>
-
+                <button onclick="slideGallery(-1)" class="absolute -left-5 top-1/2 -translate-y-1/2 bg-white w-12 h-12 rounded-full shadow-xl text-blue-600 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all z-10">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button onclick="slideGallery(1)" class="absolute -right-5 top-1/2 -translate-y-1/2 bg-white w-12 h-12 rounded-full shadow-xl text-blue-600 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all z-10">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
-    </section>
+    </div>
+</section>
     
     <section id="cotizador" class="py-24 bg-white">
     <div class="max-w-4xl mx-auto px-6">
@@ -751,6 +776,85 @@
             if (document.getElementById('expressDelivery').checked) msg += "🚀 *ORDEN EXPRESS*%0A";
             msg += `*Total:* ${document.getElementById('totalDisplay').innerText}`;
             window.open(`https://wa.me/18099140210?text=${msg}`);
+        }
+        const BRAND_DATA = {
+            'yk': {
+                name: 'Marca YK',
+                products: [
+                    { img: 'yk1.jpg', desc: 'Polo con Bordado 3D' },
+                    { img: 'yk2.jpg', desc: 'Gorra DTF Premium' },
+                    { img: 'yk3.jpg', desc: 'Jersey Sublimado' },
+                    { img: 'yk4.jpg', desc: 'Parche Termo' },
+                    { img: 'yk5.jpg', desc: 'Uniforme Corp' },
+                    { img: 'yk6.jpg', desc: 'Tshirt DTF' },
+                    { img: 'yk7.jpg', desc: 'Chaqueta Personalizada' }
+                ]
+            }
+        };
+
+        let currentGalleryPos = 0;
+
+        function showBrandGallery(brandKey) {
+            const data = BRAND_DATA[brandKey];
+            if(!data) return;
+            document.getElementById('marcas-grid').classList.add('hidden');
+            document.getElementById('marcas-header').classList.add('hidden');
+            document.getElementById('brand-gallery-container').classList.remove('hidden');
+            document.getElementById('brand-name-display').innerText = data.name;
+            const slider = document.getElementById('brand-slider');
+            slider.innerHTML = data.products.map(p => `
+                <div onclick="openModal('${p.img}', '${p.desc}')" class="min-w-[280px] bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm cursor-zoom-in hover:shadow-xl transition-all group">
+                    <div class="relative overflow-hidden">
+                        <img src="${p.img}" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <i class="fas fa-search-plus text-white text-3xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-4 text-center">
+                        <p class="font-black text-slate-900 text-sm uppercase italic tracking-tighter">${p.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+            currentGalleryPos = 0;
+            slider.style.transform = `translateX(0px)`;
+        }
+
+        function hideBrandGallery() {
+            document.getElementById('marcas-grid').classList.remove('hidden');
+            document.getElementById('marcas-header').classList.remove('hidden');
+            document.getElementById('brand-gallery-container').classList.add('hidden');
+        }
+
+        function slideGallery(dir) {
+            const slider = document.getElementById('brand-slider');
+            const step = 300; 
+            currentGalleryPos = Math.max(Math.min(currentGalleryPos - (dir * step), 0), -(step * 4)); 
+            slider.style.transform = `translateX(${currentGalleryPos}px)`;
+        }
+
+        function openModal(imgSrc, description) {
+            let modal = document.getElementById('imageModal');
+            if(!modal) {
+                const modalHTML = `
+                <div id="imageModal" class="hidden fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 backdrop-blur-sm">
+                    <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-4xl hover:text-blue-500"><i class="fas fa-times"></i></button>
+                    <div class="max-w-4xl w-full flex flex-col items-center">
+                        <img id="modalImg" src="" class="max-h-[80vh] rounded-2xl shadow-2xl border border-white/10 object-contain">
+                        <p id="modalDesc" class="mt-6 text-white text-xl font-black uppercase italic text-center"></p>
+                    </div>
+                </div>`;
+                document.body.insertAdjacentHTML('beforeend', modalHTML);
+                modal = document.getElementById('imageModal');
+            }
+            document.getElementById('modalImg').src = imgSrc;
+            document.getElementById('modalDesc').innerText = description;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
         addItem();
     </script>
