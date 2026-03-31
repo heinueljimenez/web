@@ -76,11 +76,13 @@
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* Estilos específicos para la nueva sección de Ofertas */
+        .offers-container { position: relative; }
         .offers-slider {
             display: flex;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
         }
         .offers-slider::-webkit-scrollbar { display: none; }
         .offer-card {
@@ -89,6 +91,30 @@
         }
         @media (min-width: 768px) { .offer-card { flex: 0 0 50%; } }
         @media (min-width: 1024px) { .offer-card { flex: 0 0 33.333%; } }
+
+        /* Navegación para Mouse en Ofertas */
+        .nav-offer {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(37, 99, 235, 0.8);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 30;
+            opacity: 0;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .offers-container:hover .nav-offer { opacity: 1; }
+        .nav-offer:hover { background: #000; scale: 1.1; }
+        .nav-offer.prev { left: 10px; }
+        .nav-offer.next { right: 10px; }
     </style>
 </head>
 <body class="selection:bg-blue-600 selection:text-white">
@@ -194,64 +220,70 @@
             <span class="text-blue-500 font-black tracking-[0.3em] text-[10px] uppercase">Oportunidades únicas</span>
             <h2 class="text-white text-3xl font-black italic uppercase tracking-tighter">Ofertas <span class="text-blue-600">Flash</span></h2>
         </div>
-        <div class="offers-slider">
-            <div class="offer-card border-r border-white/10 bg-zinc-900 group">
-                <div class="h-80 overflow-hidden">
-                    <img src="OFERTA_1.jpg" alt="Oferta 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-white font-black uppercase italic text-xl">Combo DTF X10</h3>
-                    <div class="flex items-center gap-3 mt-2">
-                        <span class="text-white/30 line-through font-bold text-sm">RD$ 2,500</span>
-                        <span class="text-blue-500 font-black text-2xl">RD$ 1,850</span>
+        
+        <div class="offers-container">
+            <button class="nav-offer prev" onclick="scrollOffers(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="nav-offer next" onclick="scrollOffers(1)"><i class="fas fa-chevron-right"></i></button>
+
+            <div class="offers-slider" id="offersSlider">
+                <div class="offer-card border-r border-white/10 bg-zinc-900 group">
+                    <div class="h-80 overflow-hidden">
+                        <img src="OFERTA_1.jpg" alt="Oferta 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-white font-black uppercase italic text-xl">Combo DTF X10</h3>
+                        <div class="flex items-center gap-3 mt-2">
+                            <span class="text-white/30 line-through font-bold text-sm">RD$ 2,500</span>
+                            <span class="text-blue-500 font-black text-2xl">RD$ 1,850</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="offer-card border-r border-white/10 bg-zinc-900 group">
-                <div class="h-80 overflow-hidden">
-                    <img src="OFERTA_2.jpg" alt="Oferta 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-white font-black uppercase italic text-xl">Bordado Gorras</h3>
-                    <div class="flex items-center gap-3 mt-2">
-                        <span class="text-white/30 line-through font-bold text-sm">RD$ 450</span>
-                        <span class="text-blue-500 font-black text-2xl">RD$ 325</span>
+                <div class="offer-card border-r border-white/10 bg-zinc-900 group">
+                    <div class="h-80 overflow-hidden">
+                        <img src="OFERTA_2.jpg" alt="Oferta 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-white font-black uppercase italic text-xl">Bordado Gorras</h3>
+                        <div class="flex items-center gap-3 mt-2">
+                            <span class="text-white/30 line-through font-bold text-sm">RD$ 450</span>
+                            <span class="text-blue-500 font-black text-2xl">RD$ 325</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="offer-card border-r border-white/10 bg-zinc-900 group">
-                <div class="h-80 overflow-hidden">
-                    <img src="OFERTA_3.jpg" alt="Oferta 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-white font-black uppercase italic text-xl">Vinil Textil Premium</h3>
-                    <div class="flex items-center gap-3 mt-2">
-                        <span class="text-white/30 line-through font-bold text-sm">RD$ 1,200</span>
-                        <span class="text-blue-500 font-black text-2xl">RD$ 890</span>
+                <div class="offer-card border-r border-white/10 bg-zinc-900 group">
+                    <div class="h-80 overflow-hidden">
+                        <img src="OFERTA_3.jpg" alt="Oferta 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-white font-black uppercase italic text-xl">Vinil Textil Premium</h3>
+                        <div class="flex items-center gap-3 mt-2">
+                            <span class="text-white/30 line-through font-bold text-sm">RD$ 1,200</span>
+                            <span class="text-blue-500 font-black text-2xl">RD$ 890</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="offer-card border-r border-white/10 bg-zinc-900 group">
-                <div class="h-80 overflow-hidden">
-                    <img src="OFERTA_4.jpg" alt="Oferta 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-white font-black uppercase italic text-xl">Stickers UV Relief</h3>
-                    <div class="flex items-center gap-3 mt-2">
-                        <span class="text-white/30 line-through font-bold text-sm">RD$ 800</span>
-                        <span class="text-blue-500 font-black text-2xl">RD$ 550</span>
+                <div class="offer-card border-r border-white/10 bg-zinc-900 group">
+                    <div class="h-80 overflow-hidden">
+                        <img src="OFERTA_4.jpg" alt="Oferta 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-white font-black uppercase italic text-xl">Stickers UV Relief</h3>
+                        <div class="flex items-center gap-3 mt-2">
+                            <span class="text-white/30 line-through font-bold text-sm">RD$ 800</span>
+                            <span class="text-blue-500 font-black text-2xl">RD$ 550</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="offer-card bg-zinc-900 group">
-                <div class="h-80 overflow-hidden">
-                    <img src="OFERTA_5.jpg" alt="Oferta 5" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-white font-black uppercase italic text-xl">Sublimación Jarros</h3>
-                    <div class="flex items-center gap-3 mt-2">
-                        <span class="text-white/30 line-through font-bold text-sm">RD$ 350</span>
-                        <span class="text-blue-500 font-black text-2xl">RD$ 275</span>
+                <div class="offer-card bg-zinc-900 group">
+                    <div class="h-80 overflow-hidden">
+                        <img src="OFERTA_5.jpg" alt="Oferta 5" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-white font-black uppercase italic text-xl">Sublimación Jarros</h3>
+                        <div class="flex items-center gap-3 mt-2">
+                            <span class="text-white/30 line-through font-bold text-sm">RD$ 350</span>
+                            <span class="text-blue-500 font-black text-2xl">RD$ 275</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -475,11 +507,20 @@
             updateCarousel();
         }
 
-        // Auto-play
         setInterval(() => {
             currentSlide = (currentSlide + 1) % totalSlides;
             updateCarousel();
         }, 5000);
+
+        // LOGICA DESLIZAR OFERTAS (MOUSE)
+        function scrollOffers(direction) {
+            const slider = document.getElementById('offersSlider');
+            const scrollAmount = slider.clientWidth; // Desplaza el ancho visible
+            slider.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
 
         // PRODUCT SLIDER LOGIC
         let productScroll = 0;
@@ -488,7 +529,6 @@
         const totalProducts = productCards.length;
 
         function nextProduct() {
-            // Calcula cuántas tarjetas caben según el ancho actual
             const visibleCards = window.innerWidth > 1024 ? 4 : (window.innerWidth > 640 ? 2 : 1);
             if (productScroll < totalProducts - visibleCards) {
                 productScroll++;
@@ -504,7 +544,7 @@
         }
 
         function updateProductSlider() {
-            const cardWidth = productCards[0].offsetWidth + 20; // Ancho + gap
+            const cardWidth = productCards[0].offsetWidth + 20;
             productContainer.style.transform = `translateX(-${productScroll * cardWidth}px)`;
         }
 
