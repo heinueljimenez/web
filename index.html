@@ -121,4 +121,248 @@
                     </div>
                     <div class="carousel-item w-full md:w-1/2 flex-shrink-0 p-2">
                         <div class="relative h-[450px] rounded-[2rem] overflow-hidden group">
-                            <img src="UV
+                            <img src="UV_IMPRESION.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                            <div class="absolute bottom-8 left-8 text-white"><h3 class="text-2xl font-black italic">IMPRESIÓN UV POR YARDAS</h3></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6">
+        <div class="max-w-4xl mx-auto glass-card rounded-[4rem] p-8 md:p-16 shadow-2xl">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl font-black text-slate-900 mb-2 uppercase italic tracking-tighter">Cotizador <span class="text-blue-600">Smart</span></h2>
+                <p class="text-slate-500 font-bold uppercase text-[10px] tracking-widest">Presupuesto al instante</p>
+            </div>
+
+            <div class="space-y-8">
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest ml-4">Nombre / Empresa</label>
+                    <input type="text" id="nombre" placeholder="Ej: BarberShop Pro" class="w-full rounded-3xl border-2 border-slate-100 bg-white p-6 focus:border-blue-600 outline-none transition-all font-bold text-lg shadow-sm">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest ml-4">Servicio</label>
+                        <select id="servicio" onchange="calculate()" class="w-full rounded-3xl border-2 border-slate-100 bg-white p-6 focus:border-blue-600 outline-none font-black cursor-pointer appearance-none">
+                            <option value="350">DTF Textil (RD$350)</option>
+                            <option value="900">DTF UV (RD$900)</option>
+                            <option value="150">Bordado (RD$150)</option>
+                            <option value="300">Sublimación (RD$300)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest ml-4">Cantidad</label>
+                        <input type="number" id="cantidad" value="1" min="1" oninput="calculate()" class="w-full rounded-3xl border-2 border-slate-100 bg-white p-6 focus:border-blue-600 outline-none font-black text-xl text-center shadow-sm">
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest ml-4">Sube tu diseño (Máx 75MB)</label>
+                    <div class="relative">
+                        <input type="file" id="disenoArchivo" accept=".pdf,.ai,.png,.jpg,.webp" 
+                            class="w-full rounded-3xl border-2 border-slate-100 bg-white p-4 focus:border-blue-600 transition-all text-xs file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-black file:bg-blue-600 file:text-white hover:file:bg-slate-900">
+                        <p id="errorArchivo" class="text-red-500 text-[9px] mt-2 hidden font-black uppercase italic ml-4 animate-pulse">⚠️ El archivo excede los 75MB</p>
+                    </div>
+                </div>
+
+                <div class="bg-blue-600 rounded-[2rem] p-8 flex items-center gap-6 text-white shadow-2xl hover:scale-[1.02] transition-transform cursor-pointer" onclick="document.getElementById('express').click()">
+                    <input type="checkbox" id="express" onchange="calculate()" class="w-8 h-8 accent-white cursor-pointer">
+                    <div>
+                        <p class="font-black text-lg uppercase leading-tight italic">Servicio EXPRESS</p>
+                        <p class="text-xs opacity-80 font-bold">+20% de cargo (Prioridad máxima)</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-950 rounded-[3rem] p-12 text-center text-white relative border-b-8 border-blue-600 overflow-hidden">
+                    <p class="text-[10px] uppercase font-black text-slate-500 mb-4 tracking-[0.4em]">Inversión Estimada</p>
+                    <div class="text-6xl font-black" id="totalDisplay">RD$ 350.00</div>
+                    <div id="promoBox" class="hidden mt-6 bg-yellow-400 text-slate-900 text-xs font-black px-6 py-2 rounded-full inline-block uppercase italic animate-bounce"></div>
+                </div>
+
+                <button onclick="sendWhatsApp()" class="w-full bg-[#25D366] hover:bg-[#1ebd58] text-white font-black py-7 rounded-[2rem] shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-4 text-2xl uppercase italic">
+                    <i class="fab fa-whatsapp text-3xl"></i> Enviar Pedido
+               </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-white/90 backdrop-blur-lg p-10 md:p-16 rounded-[4rem] shadow-2xl border border-white">
+            <div>
+                <h2 class="text-4xl font-black text-slate-900 mb-6 uppercase italic">Ubícanos en <span class="text-blue-600">La Zona</span></h2>
+                <p class="font-bold text-slate-600 mb-8 leading-relaxed">Estamos ubicados en el corazón de la Zona Colonial, listos para recibir tus proyectos de impresión de alta gama.</p>
+                <div class="space-y-6">
+                    <div class="flex items-center gap-4 text-slate-700 font-bold"><i class="fas fa-map-marker-alt text-blue-600 text-2xl"></i> Av. Mella 410, Zona Colonial, SD.</div>
+                    <div class="flex items-center gap-4 text-slate-700 font-bold"><i class="fas fa-phone-alt text-green-600 text-2xl"></i> 809-914-0210</div>
+                </div>
+            </div>
+            <div class="h-[400px] shadow-2xl map-frame overflow-hidden border-4 border-white">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.577239308226!2d-69.8893441!3d18.4719053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf88390886638b%3A0xb3866874872f2324!2sAv.%20Mella%20410%2C%20Santo%20Domingo!5e0!3m2!1ses-419!2sdo!4v1711890000000!5m2!1ses-419!2sdo" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/18099140210" class="fixed bottom-10 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full shadow-[0_10px_40px_rgba(37,211,102,0.5)] z-[9999] flex items-center justify-center hover:scale-110 transition-transform animate-bounce group">
+        <i class="fab fa-whatsapp text-4xl"></i>
+        <span class="absolute -top-1 -right-1 flex h-5 w-5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-5 w-5 bg-red-500 text-[10px] items-center justify-center font-bold text-white">1</span>
+        </span>
+    </a>
+
+    <section class="py-20 px-6 max-w-4xl mx-auto reveal">
+        <h2 class="text-3xl font-black text-white text-center mb-12 uppercase italic">Preguntas Frecuentes</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white/90 backdrop-blur p-6 rounded-3xl shadow-lg border border-white">
+                <p class="font-black text-blue-600 uppercase text-[10px] mb-2 tracking-widest">¿Mínimo de yardas?</p>
+                <p class="text-slate-700 font-bold text-sm italic">No tenemos mínimo, pero a partir de 10 yardas el precio baja automáticamente.</p>
+            </div>
+            <div class="bg-white/90 backdrop-blur p-6 rounded-3xl shadow-lg border border-white">
+                <p class="font-black text-blue-600 uppercase text-[10px] mb-2 tracking-widest">¿Envíos al interior?</p>
+                <p class="text-slate-700 font-bold text-sm italic">Hacemos envíos en el transporte de tu preferencia a todo el país.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-16 bg-white border-t border-slate-200 text-center px-6">
+        <img src="LOGO_CACHUCHA.png" class="h-16 mx-auto mb-6 grayscale opacity-30 hover:opacity-100 transition-all" alt="Logo">
+        
+        <div class="space-y-6 text-slate-500 text-sm max-w-lg mx-auto font-bold uppercase tracking-wider">
+            <p class="text-slate-700 italic normal-case">"Impresión de alta gama para clientes exigentes en la República Dominicana"</p>
+            <p>Av. Mella 410, Zona Colonial, Santo Domingo, RD</p>
+            
+            <div class="py-4">
+                <button onclick="window.open('https://wa.me/18099140210?text=Hola, quiero consultar el estatus de mi pedido')" 
+                    class="bg-blue-600 text-white px-8 py-3 rounded-xl font-black text-xs uppercase shadow-lg hover:bg-slate-900 transition-colors">
+                    ¿CÓMO VA MI PEDIDO? <i class="fas fa-search ml-2"></i>
+                </button>
+            </div>
+
+            <div class="flex justify-center gap-10 text-3xl pt-4">
+                <a href="https://wa.me/18099140210" class="text-green-500 hover:scale-110 transition-transform"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/lacachuchagraphic" class="text-pink-500 hover:scale-110 transition-transform"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:info@lacachuchagraphic.com" class="text-blue-400 hover:scale-110 transition-transform"><i class="far fa-envelope"></i></a>
+            </div>
+            
+            <p class="pt-8 text-[9px] opacity-40">© 2026 LA CACHUCHA GRAPHIC. TODOS LOS DERECHOS RESERVADOS.</p>
+        </div>
+    </footer>
+
+    <div id="faq-bot" class="fixed bottom-10 left-8 z-[9999] flex flex-col items-start font-sans">
+        <div id="chat-window" class="hidden mb-4 w-72 bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200 animate-bounce-in">
+            <div class="bg-slate-900 p-4 text-white flex justify-between items-center">
+                <span class="font-black text-[10px] uppercase tracking-widest italic">Asistente La Cachucha</span>
+                <button onclick="toggleChat()" class="text-white opacity-50 hover:opacity-100">×</button>
+            </div>
+            <div class="p-4 space-y-3 max-h-64 overflow-y-auto bg-slate-50" id="chat-content">
+                <p class="text-[10px] bg-white p-3 rounded-2xl text-slate-700 font-bold shadow-sm border border-slate-100">👋 ¡Hola! Soy el asistente de La Cachucha. ¿Qué duda tienes hoy?</p>
+                <div class="grid grid-cols-1 gap-2">
+                    <button onclick="botResponde('tiempo')" class="text-left text-[9px] p-2 bg-white hover:bg-blue-600 hover:text-white rounded-xl border border-slate-200 font-black uppercase transition-all shadow-sm">¿Cuánto tardan los pedidos?</button>
+                    <button onclick="botResponde('envio')" class="text-left text-[9px] p-2 bg-white hover:bg-blue-600 hover:text-white rounded-xl border border-slate-200 font-black uppercase transition-all shadow-sm">¿Hacen envíos al interior?</button>
+                    <button onclick="botResponde('formato')" class="text-left text-[9px] p-2 bg-white hover:bg-blue-600 hover:text-white rounded-xl border border-slate-200 font-black uppercase transition-all shadow-sm">¿En qué formato mando mi arte?</button>
+                    <button onclick="botResponde('horario')" class="text-left text-[9px] p-2 bg-white hover:bg-blue-600 hover:text-white rounded-xl border border-slate-200 font-black uppercase transition-all shadow-sm">🕒 Ver Horario Laboral</button>
+                </div>
+            </div>
+        </div>
+        <button onclick="toggleChat()" class="bg-blue-600 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all border-2 border-white group">
+            <i class="fas fa-robot text-xl group-hover:rotate-12 transition-transform"></i>
+        </button>
+    </div>
+
+    <script>
+        // Barra de progreso
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+
+        // Estado en vivo corregido
+        function updateStatus() {
+            const h = new Date().getHours();
+            const d = new Date().getDay();
+            const badge = document.getElementById('statusBadge');
+            const texto = badge.querySelector('span:last-child');
+            let abierto = false;
+
+            if (d >= 1 && d <= 5) { if (h >= 9 && h < 18) abierto = true; } 
+            else if (d === 6) { if (h >= 9 && h < 13) abierto = true; }
+
+            if (abierto) {
+                texto.innerText = "Abierto Ahora";
+                badge.classList.replace('bg-red-100', 'bg-green-100');
+                badge.classList.replace('text-red-700', 'text-green-700');
+            } else {
+                texto.innerText = "Cerrado";
+                badge.classList.replace('bg-green-100', 'bg-red-100');
+                badge.classList.replace('text-green-700', 'text-red-700');
+            }
+        }
+        updateStatus();
+
+        // Carrusel
+        let idx = 0;
+        setInterval(() => {
+            idx = (idx + 1) % 5;
+            const move = window.innerWidth >= 768 ? idx * 50 : idx * 100;
+            document.getElementById('carousel').style.transform = `translateX(-${move}%)`;
+        }, 4000);
+
+        // Cotizador
+        function calculate() {
+            const price = parseFloat(document.getElementById('servicio').value);
+            const qty = Math.max(1, parseInt(document.getElementById('cantidad').value) || 1);
+            const isExpress = document.getElementById('express').checked;
+            const serviceType = document.getElementById('servicio').options[document.getElementById('servicio').selectedIndex].text;
+            let total = price * qty;
+            let promo = "";
+
+            if (!isExpress) {
+                if (serviceType.includes("Sublimación") && qty >= 10) { total *= 0.90; promo = "¡10% DESCUENTO APLICADO!"; }
+                else if (serviceType.includes("Textil") && qty >= 10) { total *= 0.92; promo = "¡8% DESCUENTO APLICADO!"; }
+            } else { total *= 1.20; promo = "PRIORIDAD EXPRESS (+20%)"; }
+
+            document.getElementById('totalDisplay').innerText = "RD$ " + total.toLocaleString('en-US', {minimumFractionDigits: 2});
+            const pBox = document.getElementById('promoBox');
+            if(promo) { pBox.innerText = promo; pBox.classList.remove('hidden'); } else { pBox.classList.add('hidden'); }
+        }
+
+        // WhatsApp Pedido
+        function sendWhatsApp() {
+            const nombre = document.getElementById('nombre').value;
+            if(!nombre) { alert("Por favor, pon tu nombre."); return; }
+            const servicioTexto = document.getElementById('servicio').options[document.getElementById('servicio').selectedIndex].text;
+            const cantidad = document.getElementById('cantidad').value;
+            const express = document.getElementById('express').checked ? "SI ✅" : "NO ❌";
+            const total = document.getElementById('totalDisplay').innerText;
+            const archivoInput = document.getElementById('disenoArchivo');
+            let nombreArchivo = archivoInput.files.length > 0 ? archivoInput.files[0].name : "No adjuntado";
+
+            const msg = `*LA CACHUCHA GRAPHIC*%0A%0A👤 *Cliente:* ${nombre}%0A📁 *Servicio:* ${servicioTexto}%0A🔢 *Cantidad:* ${cantidad}%0A⚡ *Express:* ${express}%0A📄 *Archivo:* ${nombreArchivo}%0A💰 *Total:* ${total}`;
+            window.open(`https://wa.me/18099140210?text=${msg}`, '_blank');
+        }
+
+        // Bot Asistente
+        function toggleChat() { document.getElementById('chat-window').classList.toggle('hidden'); }
+        function botResponde(tipo) {
+            const content = document.getElementById('chat-content');
+            let resp = "";
+            if(tipo === 'tiempo') resp = "🚀 DTF: 24h. Bordados: 2-3 días. Sublimación: 24-48h.";
+            if(tipo === 'envio') resp = "🚚 Enviamos por Caribe Pack, Metro Pac y más a todo el país.";
+            if(tipo === 'formato') resp = "🎨 Formatos: PDF, AI o PNG (Alta res).";
+            if(tipo === 'horario') resp = "🕒 Lun-Vie: 9-6 | Sáb: 9-1.";
+            
+            const b = document.createElement('p');
+            b.className = "text-[10px] bg-blue-600 text-white p-3 rounded-2xl font-bold mt-2 shadow-md self-end ml-4";
+            b.innerText = resp;
+            content.appendChild(b);
+            content.scrollTo({ top: content.scrollHeight, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
