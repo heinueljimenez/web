@@ -85,7 +85,36 @@
             cursor: pointer; transition: all 0.3s;
         }
         .dot.active { background: #2563eb; width: 30px; border-radius: 20px; }
+        
+        /* --- MEJORA DE LEGIBILIDAD Y EFECTO CRISTAL --- */
+        .carousel-item .carousel-overlay {
+            background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.7) 100%);
+        }
 
+        .carousel-item h2 {
+            font-weight: 900;
+            line-height: 1;
+            text-shadow: 3px 3px 15px rgba(0,0,0,0.8);
+            filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.5));
+        }
+
+        .carousel-item p {
+            background: rgba(0, 0, 0, 0.5) !important;
+            padding: 8px 16px !important;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 15px;
+            
+            /* EFECTO DE DESENFOQUE (BLUR) REFORZADO */
+            -webkit-backdrop-filter: blur(10px) !important;
+            backdrop-filter: blur(10px) !important;
+            
+            border: 1px solid rgba(255,255,255,0.15);
+            color: white !important;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            font-style: italic;
+        }
+        
         /* Slider de Productos */
         .product-slider-container {
             display: flex;
@@ -205,35 +234,35 @@
                 <div class="carousel-overlay flex flex-col justify-center px-12 md:px-24">
                     <span class="text-blue-500 font-black tracking-[0.4em] mb-4 text-sm">CALIDAD INDUSTRIAL</span>
                     <h2 class="text-white text-5xl md:text-7xl font-black italic uppercase leading-tight tracking-tighter">DTF TEXTIL <br> DE ALTA GAMA</h2>
-                    <p class="text-white/70 max-w-lg mt-4 font-medium italic">Impresión con colores vibrantes y máxima durabilidad para tus prendas.</p>
+                    <p class="text-white max-w-lg mt-4 font-medium italic">Impresión con colores vibrantes y máxima durabilidad para tus prendas.</p>
                 </div>
             </div>
             <div class="carousel-item" style="background-image: url('DTF_UV_R.webp');">
                 <div class="carousel-overlay flex flex-col justify-center px-12 md:px-24">
                     <span class="text-blue-500 font-black tracking-[0.4em] mb-4 text-sm">ADHESIVO ETERNO</span>
                     <h2 class="text-white text-5xl md:text-7xl font-black italic uppercase leading-tight tracking-tighter">DTF UV <br> PREMIUM</h2>
-                    <p class="text-white/70 max-w-lg mt-4 font-medium italic">Personaliza superficies rígidas con relieve y resistencia extrema.</p>
+                    <p class="text-white max-w-lg mt-4 font-medium italic">Personaliza superficies rígidas con relieve y resistencia extrema.</p>
                 </div>
             </div>
             <div class="carousel-item" style="background-image: url('GORRA.png');">
                 <div class="carousel-overlay flex flex-col justify-center px-12 md:px-24">
                     <span class="text-blue-500 font-black tracking-[0.4em] mb-4 text-sm">3D & TRADICIONAL</span>
                     <h2 class="text-white text-5xl md:text-7xl font-black italic uppercase leading-tight tracking-tighter">BORDADO <br> INDUSTRIAL</h2>
-                    <p class="text-white/70 max-w-lg mt-4 font-medium italic">El acabado más profesional para uniformes y gorras de lujo.</p>
+                    <p class="text-white max-w-lg mt-4 font-medium italic">El acabado más profesional para uniformes y gorras de lujo.</p>
                 </div>
             </div>
             <div class="carousel-item" style="background-image: url('UV-IMPRESION.png');">
                 <div class="carousel-overlay flex flex-col justify-center px-12 md:px-24">
                     <span class="text-blue-500 font-black tracking-[0.4em] mb-4 text-sm">POR YARDAS</span>
                     <h2 class="text-white text-5xl md:text-7xl font-black italic uppercase leading-tight tracking-tighter">IMPRESIÓN <br> UV DTF</h2>
-                    <p class="text-white/70 max-w-lg mt-4 font-medium italic">FORMATO 16X36 PULGADAS.</p>
+                    <p class="text-white max-w-lg mt-4 font-medium italic">FORMATO 16X36 PULGADAS.</p>
                 </div>
             </div>
             <div class="carousel-item" style="background-image: url('SUBLIMACION_M.jpg');">
                 <div class="carousel-overlay flex flex-col justify-center px-12 md:px-24">
                     <span class="text-blue-500 font-black tracking-[0.4em] mb-4 text-sm">FULL COLOR</span>
                     <h2 class="text-white text-5xl md:text-7xl font-black italic uppercase leading-tight tracking-tighter">SUBLIMACIÓN <br> POR METRO</h2>
-                    <p class="text-white/70 max-w-lg mt-4 font-medium italic">Colores que no se sienten al tacto, ideales para poliéster.</p>
+                    <p class="text-white max-w-lg mt-4 font-medium italic">Colores que no se sienten al tacto, ideales para poliéster.</p>
                 </div>
             </div>
         </div>
