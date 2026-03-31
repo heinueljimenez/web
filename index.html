@@ -22,13 +22,32 @@
         .header-top { background-color: #000; color: #fff; font-size: 11px; }
         .nav-main { background-color: #fff; border-bottom: 1px solid #eee; transition: all 0.3s ease; }
 
-        /* --- PEGA ESTO AQUÍ PARA EL MODO OSCURO --- */
+        /* --- MODO OSCURO REFORZADO --- */
         body.dark { background-color: #0f172a; color: #f1f5f9; }
-        .dark .nav-main { background-color: #1e293b; border-bottom: 1px solid #334155; }
-        .dark .nav-main span { color: #f1f5f9; }
-        .dark section.bg-white { background-color: #1e293b !important; color: #f1f5f9; }
+        
+        .dark .nav-main { background-color: #1e293b !important; border-bottom: 1px solid #334155; }
+        
+        /* Esto obliga a TODOS los textos a ponerse blancos/claros */
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark span, .dark p, .dark label, .dark div { 
+            color: #f1f5f9 !important; 
+        }
+        
+        /* Las secciones cambian de fondo */
+        .dark section.bg-white { background-color: #1e293b !important; }
         .dark section.bg-slate-50 { background-color: #0f172a !important; }
-        .dark .item-row { background-color: #334155; border-color: #475569; color: white; }
+        
+        /* Las tarjetas y el cotizador */
+        .dark .item-row, .dark .bg-white.shadow-sm, .dark .product-card { 
+            background-color: #1e293b !important; 
+            border-color: #334155 !important; 
+        }
+
+        /* Inputs del cotizador: Fondo oscuro, letras blancas */
+        .dark .service-select, .dark .quantity-input { 
+            background-color: #0f172a !important; 
+            color: white !important; 
+            border: 1px solid #475569 !important; 
+        }
         
         /* Carrusel Pantalla Completa (Full Width) */
         .carousel-wrapper { position: relative; width: 100%; overflow: hidden; height: 600px; }
@@ -872,26 +891,27 @@
             document.body.style.overflow = 'auto';
         }
     function toggleDarkMode() {
-            const body = document.body;
-            const icon = document.getElementById('dark-icon');
-            
-            body.classList.toggle('dark');
-            
-            // Cambiar el ícono de luna a sol
-            if (body.classList.contains('dark')) {
-                icon.classList.replace('fa-moon', 'fa-sun');
-                icon.style.color = '#fbbf24'; // Color amarillo sol
-            } else {
-                icon.classList.replace('fa-sun', 'fa-moon');
-                icon.style.color = '#475569';
-            }
+        const body = document.body;
+        const icon = document.getElementById('dark-icon');
+        
+        body.classList.toggle('dark');
+        
+        if (body.classList.contains('dark')) {
+            icon.classList.replace('fa-moon', 'fa-sun');
+            icon.style.color = '#fbbf24'; 
+        } else {
+            icon.classList.replace('fa-sun', 'fa-moon');
+            icon.style.color = '#475569';
         }
-        // Inicialización Total
-        window.onload = () => {
-            updateStatus();
-            addItem();
-            window.addEventListener('resize', updateProductSlider);
-        };
+    }
+
+    window.onload = () => {
+        updateStatus();
+        addItem();
+        // Si pusiste reveal, ponlo aquí; si no, ignora esta línea.
+        if (typeof reveal === "function") reveal(); 
+        window.addEventListener('resize', updateProductSlider);
+    };
     </script>
 </body>
 </html>
