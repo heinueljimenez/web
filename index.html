@@ -543,17 +543,30 @@
         <div class="text-center mb-12">
             <span class="text-blue-600 font-black tracking-widest text-xs uppercase">Calcula tu presupuesto</span>
             <h2 class="text-4xl font-black text-slate-900 uppercase italic">Cotizador <span class="text-blue-600">SMART</span></h2>
-            <p class="text-slate-500 font-bold mt-2">Agrega varios servicios sin complicarte.</p>
+      <p class="text-slate-500 font-bold mt-2">Agrega varios servicios sin complicarte.</p>
+</div>
+
+<div class="bg-slate-50 rounded-[2rem] p-8 shadow-inner border border-slate-100">
+    
+    <div class="mb-8 p-6 bg-white rounded-2xl border-2 border-blue-50 shadow-sm transition-all focus-within:border-blue-600">
+        <label for="clientName" class="block text-slate-400 font-black uppercase text-[10px] tracking-[0.2em] mb-3">
+            ¿Con quién tenemos el gusto? <span class="text-red-500">* Obligatorio</span>
+        </label>
+        <div class="relative">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-blue-600">
+                <i class="fas fa-user-circle text-xl"></i>
+            </span>
+            <input type="text" id="clientName" placeholder="Tu nombre o el de tu negocio..." 
+                class="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-100 rounded-xl font-bold text-slate-900 focus:outline-none transition-all placeholder:text-slate-300 placeholder:font-medium">
+        </div>
+    </div>
+
+    <div id="itemsContainer" class="space-y-6">
         </div>
 
-        <div class="bg-slate-50 rounded-[2rem] p-8 shadow-inner border border-slate-100">
-            <div id="itemsContainer" class="space-y-6">
-                </div>
-
-            <button onclick="addItem()" class="mt-8 flex items-center gap-2 text-slate-900 font-black uppercase italic text-xs hover:text-blue-600 transition-colors">
-                <i class="fas fa-plus-circle text-blue-600 text-lg"></i> Agregar otro artículo o servicio
-            </button>
-
+    <button onclick="addItem()" class="mt-8 flex items-center gap-2 text-slate-900 font-black uppercase italic text-xs hover:text-blue-600 transition-colors">
+        <i class="fas fa-plus-circle text-blue-600 text-lg"></i> Agregar otro artículo o servicio
+    </button>
             <hr class="my-8 border-slate-200">
 
             <div class="flex flex-col md:flex-row justify-between items-end gap-8">
@@ -863,17 +876,39 @@
             if(disp) disp.innerText = `RD$ ${Math.round(total).toLocaleString()}`;
         }
 
-        function sendToWhatsApp() {
-            let msg = "¡Hola! Cotización de La Cachucha Graphic:%0A%0A";
-            document.querySelectorAll('.item-row').forEach(row => {
-                const name = SERVICES[row.querySelector('.service-select').value].name;
-                const qty = row.querySelector('.quantity-input').value;
-                msg += `• ${qty}x ${name}%0A`;
-            });
-            if (document.getElementById('expressDelivery')?.checked) msg += "%0A🚀 *ORDEN EXPRESS (Entrega prioritaria)*%0A";
-            msg += `%0A*Total Estimado:* ${document.getElementById('totalDisplay').innerText}`;
-            window.open(`https://wa.me/18099140210?text=${msg}`);
-        }
+    function sendToWhatsApp() {
+    // 1. Capturamos el nombre del input que agregamos al HTML
+    const clientName = document.getElementById('clientName').value.trim();
+
+    // 2. Bloqueo de seguridad: Si no hay nombre, no sale el mensaje
+    if (clientName === "") {
+        alert("¡Mano! Por favor, pon tu nombre para saber con quién hablamos. 😎");
+        document.getElementById('clientName').focus(); // Lleva el cursor al campo
+        return; // Detiene la función
+    }
+
+    // 3. Si hay nombre, armamos el mensaje profesional
+    let msg = `*COTIZACIÓN: LA CACHUCHA GRAPHIC*%0A`;
+    msg += `👤 *Cliente:* ${clientName}%0A%0A`;
+    msg += `*DETALLE DEL PEDIDO:*%0A`;
+
+    document.querySelectorAll('.item-row').forEach(row => {
+        const serviceKey = row.querySelector('.service-select').value;
+        const name = SERVICES[serviceKey].name;
+        const qty = row.querySelector('.quantity-input').value;
+        msg += `• ${qty}x ${name}%0A`;
+    });
+
+    if (document.getElementById('expressDelivery')?.checked) {
+        msg += "%0A🚀 *ORDEN EXPRESS (Entrega prioritaria)*%0A";
+    }
+
+    const total = document.getElementById('totalDisplay').innerText;
+    msg += `%0A*Total Estimado:* ${total}`;
+
+    // 4. Abrimos WhatsApp con el mensaje completo
+    window.open(`https://wa.me/18099140210?text=${msg}`);
+}
 
         // --- 7. ESTADO EN VIVO Y MODAL ---
         function updateStatus() {
