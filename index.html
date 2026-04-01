@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Cachucha Graphic | Impresión & Bordados Premium RD</title>
+
+    <script src="https://www.google.com/recaptcha/api.js?render=6LeVrqAsAAAAAHf6Hgeu-XKJoxfgDuOR65a7DvEG"></script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
         
@@ -15,10 +19,12 @@
             scroll-behavior: smooth;
         }
 
-        /* Transiciones y Sombras */
+        /* ESTILOS */
+        
         .header-top { background-color: #000; color: #fff; font-size: 11px; }
+
         .nav-main { background-color: #fff; border-bottom: 1px solid #eee; }
-        /* Estilo Tekgraf: Transiciones y Sombras */
+        /* Transiciones y Sombras */
         .header-top { background-color: #000; color: #fff; font-size: 11px; }
         .nav-main { background-color: #fff; border-bottom: 1px solid #eee; transition: all 0.3s ease; }
 
@@ -872,88 +878,103 @@
                 total += price * q;
             });
             if (document.getElementById('expressDelivery')?.checked) total *= 1.20;
-            const disp = document.getElementById('totalDisplay');
-            if(disp) disp.innerText = `RD$ ${Math.round(total).toLocaleString()}`;
-        }
 
+        const disp = document.getElementById('totalDisplay');
+        if (disp) {
+            disp.innerText = `RD$ ${Math.round(total).toLocaleString()}`;
+        }
+    }
     function sendToWhatsApp() {
-    // 1. Capturamos el nombre del input que agregamos al HTML
-    const clientName = document.getElementById('clientName').value.trim();
+        // 1. Capturamos el nombre
+        const clientName = document.getElementById('clientName').value.trim();
 
-    // 2. Bloqueo de seguridad: Si no hay nombre, no sale el mensaje
-    if (clientName === "") {
-        alert("¡Mano! Por favor, pon tu nombre para saber con quién hablamos. 😎");
-        document.getElementById('clientName').focus(); // Lleva el cursor al campo
-        return; // Detiene la función
+        // 2. Bloqueo de seguridad: Si no hay nombre, no sale el mensaje
+        if (clientName === "") {
+            alert("¡Mano! Por favor, pon tu nombre para saber con quién hablamos. 😎");
+            document.getElementById('clientName').focus();
+            return;
+        }
+
+        // 3. Ejecución de reCAPTCHA v3 (El guachimán de Google)
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6LeVrqAsAAAAAHf6Hgeu-XKJoxfgDuOR65a7DvEG', {action: 'submit'}).then(function(token) {
+                
+                // 4. Si Google da el OK, armamos el mensaje profesional
+                let msg = `*COTIZACIÓN: LA CACHUCHA GRAPHIC*%0A`;
+                msg += `👤 *Cliente:* ${clientName}%0A%0A`;
+                msg += `*DETALLE DEL PEDIDO:*%0A`;
+
+                // Recorremos los productos agregados
+                document.querySelectorAll('.item-row').forEach(row => {
+                    const serviceSelect = row.querySelector('.service-select');
+                    if (serviceSelect) {
+                        const serviceKey = serviceSelect.value;
+                        const name = SERVICES[serviceKey].name;
+                        const qty = row.querySelector('.quantity-input').value;
+                        msg += `• ${qty}x ${name}%0A`;
+                    }
+                });
+
+                // Si hay envío express
+                if (document.getElementById('expressDelivery')?.checked) {
+                    msg += "%0A🚀 *ORDEN EXPRESS (Entrega prioritaria)*%0A";
+                }
+
+                const totalDisplay = document.getElementById('totalDisplay');
+                const total = totalDisplay ? totalDisplay.innerText : "Consultar";
+                msg += `%0A*Total Estimado:* ${total}`;
+
+                // 5. Abrimos WhatsApp con el mensaje blindado
+                window.open(`https://wa.me/18099140210?text=${msg}`);
+            });
+        });
     }
 
-    // 3. Si hay nombre, armamos el mensaje profesional
-    let msg = `*COTIZACIÓN: LA CACHUCHA GRAPHIC*%0A`;
-    msg += `👤 *Cliente:* ${clientName}%0A%0A`;
-    msg += `*DETALLE DEL PEDIDO:*%0A`;
-
-    document.querySelectorAll('.item-row').forEach(row => {
-        const serviceKey = row.querySelector('.service-select').value;
-        const name = SERVICES[serviceKey].name;
-        const qty = row.querySelector('.quantity-input').value;
-        msg += `• ${qty}x ${name}%0A`;
-    });
-
-    if (document.getElementById('expressDelivery')?.checked) {
-        msg += "%0A🚀 *ORDEN EXPRESS (Entrega prioritaria)*%0A";
+    // --- 6. ESTADO EN VIVO Y MODAL ---
+    function updateStatus() {
+        const now = new Date();
+        const h = now.getHours();
+        const d = now.getDay();
+        // Lun-Vie: 9am-6pm | Sáb: 9am-1pm
+        const isOpen = (d >= 1 && d <= 5 && h >= 9 && h < 18) || (d === 6 && h >= 9 && h < 13);
+        
+        const dot = document.getElementById('statusDot');
+        const text = document.getElementById('statusText');
+        const ping = document.getElementById('statusDotPing');
+        
+        if(text) text.innerText = isOpen ? "Abierto" : "Cerrado";
+        if(dot) {
+            dot.classList.remove('bg-green-500', 'bg-red-500');
+            dot.classList.add(isOpen ? 'bg-green-500' : 'bg-red-500');
+        }
+        if(ping && !isOpen) ping.classList.add('hidden');
     }
 
-    const total = document.getElementById('totalDisplay').innerText;
-    msg += `%0A*Total Estimado:* ${total}`;
-
-    // 4. Abrimos WhatsApp con el mensaje completo
-    window.open(`https://wa.me/18099140210?text=${msg}`);
-}
-
-        // --- 7. ESTADO EN VIVO Y MODAL ---
-        function updateStatus() {
-            const now = new Date();
-            const h = now.getHours();
-            const d = now.getDay();
-            // Lun-Vie: 9am-6pm | Sáb: 9am-1pm
-            const isOpen = (d >= 1 && d <= 5 && h >= 9 && h < 18) || (d === 6 && h >= 9 && h < 13);
-            
-            const dot = document.getElementById('statusDot');
-            const text = document.getElementById('statusText');
-            const ping = document.getElementById('statusDotPing');
-            
-            if(text) text.innerText = isOpen ? "Abierto" : "Cerrado";
-            if(dot) {
-                dot.classList.remove('bg-green-500', 'bg-red-500');
-                dot.classList.add(isOpen ? 'bg-green-500' : 'bg-red-500');
-            }
-            if(ping && !isOpen) ping.classList.add('hidden');
+    function openModal(img, desc) {
+        let modal = document.getElementById('imageModal');
+        if(!modal) {
+            document.body.insertAdjacentHTML('beforeend', `
+                <div id="imageModal" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm">
+                    <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-4xl hover:text-blue-500"><i class="fas fa-times"></i></button>
+                    <div class="max-w-4xl w-full text-center">
+                        <img id="modalImg" src="" class="max-h-[80vh] mx-auto rounded-xl shadow-2xl border border-white/10">
+                        <p id="modalDesc" class="mt-4 text-white text-xl font-bold uppercase italic"></p>
+                    </div>
+                </div>`);
+            modal = document.getElementById('imageModal');
         }
+        document.getElementById('modalImg').src = img;
+        document.getElementById('modalDesc').innerText = desc;
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
 
-        function openModal(img, desc) {
-            let modal = document.getElementById('imageModal');
-            if(!modal) {
-                document.body.insertAdjacentHTML('beforeend', `
-                    <div id="imageModal" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm">
-                        <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-4xl hover:text-blue-500"><i class="fas fa-times"></i></button>
-                        <div class="max-w-4xl w-full text-center">
-                            <img id="modalImg" src="" class="max-h-[80vh] mx-auto rounded-xl shadow-2xl border border-white/10">
-                            <p id="modalDesc" class="mt-4 text-white text-xl font-bold uppercase italic"></p>
-                        </div>
-                    </div>`);
-                modal = document.getElementById('imageModal');
-            }
-            document.getElementById('modalImg').src = img;
-            document.getElementById('modalDesc').innerText = desc;
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        if(modal) modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
 
-        function closeModal() {
-            const modal = document.getElementById('imageModal');
-            if(modal) modal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
     function toggleDarkMode() {
         const body = document.body;
         const icon = document.getElementById('dark-icon');
@@ -971,10 +992,10 @@
 
     window.onload = () => {
         updateStatus();
-        addItem();
-        // Si pusiste reveal, ponlo aquí; si no, ignora esta línea.
-        if (typeof reveal === "function") reveal(); 
-        window.addEventListener('resize', updateProductSlider);
+        if (typeof addItem === "function") addItem(); 
+        window.addEventListener('resize', () => {
+            if (typeof updateProductSlider === "function") updateProductSlider();
+        });
     };
     </script>
 </body>
