@@ -900,12 +900,12 @@
             grecaptcha.execute('6LeVrqAsAAAAAHf6Hgeu-XKJoxfgDuOR65a7DvEG', {action: 'submit'}).then(function(token) {
                 
                 // 4. Si Google da el OK, armamos el mensaje profesional
-                let msg = `*COTIZACIÓN: LA CACHUCHA GRAPHIC*%0A`;
+                let msg = `*COTIZACIÓN: LA CACHUCHA GRAPHIC*%0A%0A`;
                 
-                // Usamos el código universal del busto para evitar el signo de interrogación
-                msg += `\u{1F464} *Cliente:* ${encodeURIComponent(clientName)}%0A%0A`;
+                // Texto plano para que el mensaje llegue perfecto siempre
+                msg += `*Cliente:* ${encodeURIComponent(clientName)}%0A%0A`;
                 msg += `*DETALLE DEL PEDIDO:*%0A`;
-
+                
                 // Recorremos los productos agregados
                 document.querySelectorAll('.item-row').forEach(row => {
                     const serviceSelect = row.querySelector('.service-select');
