@@ -901,7 +901,9 @@
                 
                 // 4. Si Google da el OK, armamos el mensaje profesional
                 let msg = `*COTIZACIÓN: LA CACHUCHA GRAPHIC*%0A`;
-                msg += `👤 *Cliente:* ${clientName}%0A%0A`;
+                
+                // Usamos el código universal del busto para evitar el signo de interrogación
+                msg += `\u{1F464} *Cliente:* ${encodeURIComponent(clientName)}%0A%0A`;
                 msg += `*DETALLE DEL PEDIDO:*%0A`;
 
                 // Recorremos los productos agregados
@@ -921,15 +923,15 @@
                 }
 
                 const totalDisplay = document.getElementById('totalDisplay');
-                const total = totalDisplay ? totalDisplay.innerText : "Consultar";
-                msg += `%0A*Total Estimado:* ${total}`;
+                const finalTotal = totalDisplay ? totalDisplay.innerText : "Consultar";
+                msg += `%0A*Total Estimado:* ${finalTotal}`;
 
                 // 5. Abrimos WhatsApp con el mensaje blindado
                 window.open(`https://wa.me/18099140210?text=${msg}`);
             });
         });
     }
-
+    
     // --- 6. ESTADO EN VIVO Y MODAL ---
     function updateStatus() {
         const now = new Date();
